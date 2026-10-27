@@ -187,9 +187,9 @@ export default function EditorialObservatoryPage() {
           {/* Editorial Display Text */}
           <div className="lg:col-span-7 space-y-6">
             <h1 className="font-editorial-serif text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.08] tracking-tight text-[#1F1E1A] dark:text-[#EDE8DC]">
-              Same question.
+              Same question.{" "}
               <br />
-              <span className="italic text-[#2D4059] dark:text-[#6F8CB0]">Different languages.</span>
+              <span className="italic text-[#2D4059] dark:text-[#6F8CB0]">Different languages.</span>{" "}
               <br />
               Different answers?
             </h1>
@@ -218,7 +218,7 @@ export default function EditorialObservatoryPage() {
                 className="inline-flex items-center gap-2 rounded-xl border border-[#DDD6C8] bg-[#FCFAF6] px-5 py-3 text-sm font-semibold text-[#1F1E1A] transition-all hover:bg-[#EFE9DC] hover:border-[#C8BFAD] dark:border-[#36332C] dark:bg-[#1F1D19] dark:text-[#EDE8DC] dark:hover:bg-[#2A2822]"
               >
                 <Play className="h-4 w-4 text-[#B35B43]" />
-                Open Evaluation Platform
+                Start New Evaluation
               </Link>
             </div>
 
