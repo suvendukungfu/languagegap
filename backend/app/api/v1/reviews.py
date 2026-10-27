@@ -48,16 +48,23 @@ def submit_human_review(
 
     now_iso = datetime.now(timezone.utc).isoformat()
 
-    # Save human review audit record
-    review_record = HumanReviewModel(
-        response_id=task_resp.id,
-        reviewer_id=payload.reviewer_id.strip(),
-        reviewed_at=now_iso,
-        original_scores=json.dumps(original_scores_dict),
-        overridden_scores=json.dumps(validated_overrides.model_dump()),
-        reviewer_notes=payload.reviewer_notes.strip(),
-    )
-    db.add(review_record)
+    # Save or update human review audit record (idempotent audit update)
+    existing_review = db.query(HumanReviewModel).filter(HumanReviewModel.response_id == task_resp.id).first()
+    if existing_review:
+        existing_review.reviewer_id = payload.reviewer_id.strip()
+        existing_review.reviewed_at = now_iso
+        existing_review.overridden_scores = json.dumps(validated_overrides.model_dump())
+        existing_review.reviewer_notes = payload.reviewer_notes.strip()
+    else:
+        review_record = HumanReviewModel(
+            response_id=task_resp.id,
+            reviewer_id=payload.reviewer_id.strip(),
+            reviewed_at=now_iso,
+            original_scores=json.dumps(original_scores_dict),
+            overridden_scores=json.dumps(validated_overrides.model_dump()),
+            reviewer_notes=payload.reviewer_notes.strip(),
+        )
+        db.add(review_record)
 
     # Update task response record
     task_resp.dimension_scores = json.dumps(validated_overrides.model_dump())

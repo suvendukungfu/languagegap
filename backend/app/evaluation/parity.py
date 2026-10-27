@@ -73,11 +73,21 @@ class ParityCalculator:
             else:
                 language_means[lang] = 0.0
 
-        # Overall Parity Gap: highest language mean - lowest language mean
-        sorted_langs = sorted(language_means.items(), key=lambda kv: kv[1], reverse=True)
-        highest_lang, max_mean = sorted_langs[0]
-        lowest_lang, min_mean = sorted_langs[-1]
-        overall_gap = round(max_mean - min_mean, 2)
+        # Overall Parity Gap: computed across evaluated languages with samples > 0
+        evaluated_means = {lang: mean for lang, mean in language_means.items() if lang_counts[lang] > 0}
+        if len(evaluated_means) >= 2:
+            sorted_langs = sorted(evaluated_means.items(), key=lambda kv: kv[1], reverse=True)
+            highest_lang, max_mean = sorted_langs[0]
+            lowest_lang, min_mean = sorted_langs[-1]
+            overall_gap = round(max_mean - min_mean, 2)
+        elif len(evaluated_means) == 1:
+            highest_lang = list(evaluated_means.keys())[0]
+            lowest_lang = highest_lang
+            overall_gap = 0.0
+        else:
+            highest_lang = SupportedLanguage.EN
+            lowest_lang = SupportedLanguage.EN
+            overall_gap = 0.0
 
         # Dimensional Gaps
         dimensional_gaps: Dict[str, DimensionalParityGap] = {}
@@ -87,16 +97,32 @@ class ParityCalculator:
                 count = lang_counts[lang]
                 dim_means[lang] = round(dim_totals[dim][lang] / count, 2) if count > 0 else 0.0
 
-            sorted_dim = sorted(dim_means.items(), key=lambda kv: kv[1], reverse=True)
-            d_high_lang, d_max = sorted_dim[0]
-            d_low_lang, d_min = sorted_dim[-1]
+            evaluated_dim = {lang: mean for lang, mean in dim_means.items() if lang_counts[lang] > 0}
+            if len(evaluated_dim) >= 2:
+                sorted_dim = sorted(evaluated_dim.items(), key=lambda kv: kv[1], reverse=True)
+                d_high_lang, d_max = sorted_dim[0]
+                d_low_lang, d_min = sorted_dim[-1]
+                gap_val = round(d_max - d_min, 2)
+            elif len(evaluated_dim) == 1:
+                d_high_lang = list(evaluated_dim.keys())[0]
+                d_low_lang = d_high_lang
+                d_max = list(evaluated_dim.values())[0]
+                d_min = d_max
+                gap_val = 0.0
+            else:
+                d_high_lang = SupportedLanguage.EN
+                d_low_lang = SupportedLanguage.EN
+                d_max = 0.0
+                d_min = 0.0
+                gap_val = 0.0
+
             dimensional_gaps[dim] = DimensionalParityGap(
                 dimension_name=dim,
                 max_language=d_high_lang,
                 min_language=d_low_lang,
                 max_mean=d_max,
                 min_mean=d_min,
-                gap=round(d_max - d_min, 2),
+                gap=gap_val,
             )
 
         return ParityGapReport(
