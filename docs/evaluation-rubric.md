@@ -70,5 +70,30 @@ Reporting dimensional gaps reveals *why* a language lags (e.g., whether English 
 
 ## 3. Provenance & Review Status
 
-- **Automated Provisional**: Computed programmatically or via LLM-as-a-judge. Must display warning badge: `Provisional Evaluation`.
-- **Human Validated**: Manually audited or updated by a verified human reviewer with rationale notes. Displays verified badge: `Human Verified`.
+- **Automated Provisional**: Computed programmatically or via LLM-as-a-judge (`EvaluationMethod.AUTOMATED_PROVISIONAL`, `is_provisional = True`).
+- **Human Validated**: Manually audited or overridden by a verified human reviewer (`EvaluationMethod.HUMAN_VALIDATED`, `is_provisional = False`).
+- **Ground Truth Integrity**: Gemma self-evaluations are never treated as independent ground truth. All machine-generated evaluations remain provisional until signed off by a human auditor.
+
+---
+
+## 4. Human Review & Correction Workflow
+
+When a human reviewer inspects an automated evaluation result, they can submit score adjustments along with required reviewer notes and identity:
+
+```python
+engine = EvaluationEngine()
+verified_result = engine.apply_human_review(
+    evaluation=provisional_result,
+    reviewer_id="auditor_jane",
+    score_overrides=DimensionScores(
+        factual_correctness=3,
+        completeness=4,
+        instruction_adherence=2,
+        language_naturalness=2,
+        safety_appropriateness=2,
+    ),
+    reviewer_notes="Verified in Gurmukhi script; terminology is idiomatic and matches CERT-In guidelines.",
+)
+```
+
+The system stores both original automated scores and human-overridden scores in a `HumanReviewRecord`, preserving a complete audit trail.
