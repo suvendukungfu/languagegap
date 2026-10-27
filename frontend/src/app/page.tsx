@@ -482,9 +482,9 @@ export default function ShipcraftLanguageGapPage() {
 
             {/* Large White Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extralight tracking-tight text-white leading-[1.06]">
-              Same question.
+              Same question.{" "}
               <br />
-              <span className="font-light text-white">Different languages.</span>
+              <span className="font-light text-white">Different languages.</span>{" "}
               <br />
               <span className="text-[#F0A24C] font-normal">Equal opportunity</span> to understand.
             </h1>
