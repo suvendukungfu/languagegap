@@ -58,6 +58,8 @@ class GemmaProvider(BaseModelProvider):
         }
         if self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
+            if "googleapis.com" in self.base_url:
+                headers["x-goog-api-key"] = self.api_key
         return headers
 
     def get_model_metadata(self) -> ProviderMetadata:

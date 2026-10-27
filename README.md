@@ -75,6 +75,12 @@ npm run dev
 ```
 Access the research dashboard at [http://localhost:3000](http://localhost:3000). For a step-by-step walkthrough, see the [Demonstration Guide](docs/demo-guide.md).
 
+### 3. Verify Gemma Inference (Smoke Test)
+```bash
+cd backend
+.venv/bin/python app/providers/smoke_test.py --provider gemma
+```
+
 ## Benchmark Methodology Summary
 
 The initial benchmark focuses on digital literacy and societal technology (e.g., account security, app permissions, phishing detection). Each task defines canonical intent, verifiable gold facts, and disallowed claims. Full methodology is detailed in [docs/benchmark-methodology.md](docs/benchmark-methodology.md) and the scoring criteria in [docs/evaluation-rubric.md](docs/evaluation-rubric.md).
