@@ -34,10 +34,12 @@ All colors adhere to WCAG 2.2 AA contrast standards against their corresponding 
 LanguageGap prioritizes authentic orthography over decorative transliteration. Font stacks provide dedicated support for complex Indic conjuncts and ligatures:
 
 ### Display & Interface Typefaces
+
 - **Editorial Serif:** *Newsreader* (Google Fonts, variable optical sizes `opsz 6..72`, stylistic alternates `cv02`, `cv03`, `dlig`). Used for exhibition chapter headings and literary quotes.
 - **Product Sans:** *Plus Jakarta Sans* / *Geist Sans*. High legibility at small sizes (10px–14px) for telemetry numbers and metadata.
 
 ### Native Script Stacks & Metrics
+
 ```css
 /* Devanagari (Hindi) */
 .font-devanagari {
@@ -63,21 +65,27 @@ LanguageGap prioritizes authentic orthography over decorative transliteration. F
 ## 4. Design Components & Archival Primitives
 
 ### `specimen-card`
+
 Curatorial white-paper plate with subtle multi-stop box shadows (`0 1px 2px rgba(31,30,26,0.03), 0 10px 30px -5px rgba(31,30,26,0.04)`) and warm border dividers.
 
 ### `specimen-tag`
+
 Monospaced catalog classification label (`letter-spacing: 0.1em; text-transform: uppercase; font-size: 10px–11px`) used for chapter markers, task IDs, and Unicode code point ranges.
 
 ### `archival-stamp`
+
 Historical bordered stamp (`border: 1.5px solid currentColor; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700`) indicating formal methodology or verification status:
+
 - `PROVISIONAL AUTOMATED`: Fast preliminary rule-based matching.
 - `HUMAN VERIFIED`: Expert native speaker certification with immutable audit timestamp.
 - `ILLUSTRATIVE DEMO FIXTURE`: Transparent label on deterministic mock provider runs.
 
 ### `LanguageComparisonMatrix`
+
 Four-panel side-by-side specimen plate comparing English, Hindi, Punjabi, and Odia responses for a matched task, featuring real-time gold fact coverage, disallowed claim alerts, and the audit trigger.
 
 ### `HumanReviewModal`
+
 Accessible WCAG 2.2 AA audit certificate dialog with keyboard trap, score differential sliders, and mandatory reviewer identity & notes provenance recording.
 
 ---
@@ -85,11 +93,13 @@ Accessible WCAG 2.2 AA audit certificate dialog with keyboard trap, score differ
 ## 5. Motion & Accessibility
 
 ### Motion Guidelines
+
 - **Zero Scroll Hijacking:** Navigation uses standard browser scrolling with CSS smooth scrolling (`scroll-behavior: smooth`).
 - **Reduced Motion Support:** When `prefers-reduced-motion: reduce` is detected, all transitions and animations immediately collapse to 0.01ms.
 - **Battery-Friendly:** No continuous ambient loops or canvas particles that drain mobile batteries.
 
 ### Accessibility Safeguards
+
 - Contrast ratios exceed WCAG 2.2 AA 4.5:1 for body copy and 3:1 for large display text.
 - Full keyboard focusability (`focus-visible:ring-2 focus-visible:ring-[#2D4059] focus-visible:ring-offset-2`).
 - Screen reader semantic announcements using ARIA roles (`role="dialog"`, `aria-modal="true"`, `aria-labelledby`, `aria-describedby`).

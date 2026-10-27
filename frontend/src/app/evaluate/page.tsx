@@ -276,7 +276,7 @@ export default function EvaluateSetupPage() {
                           : "border-[#DDD6C8] bg-white dark:border-[#36332C]"
                       }`}
                     >
-                      {isSelected && <Check className="h-3 w-3 stroke-[3]" />}
+                      {isSelected && <Check className="h-3 w-3 stroke-3" />}
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
