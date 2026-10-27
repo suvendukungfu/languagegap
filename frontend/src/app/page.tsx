@@ -5,16 +5,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
-  ArrowUpRight,
-  Award,
   BookOpen,
-  Check,
   CheckCircle2,
-  Compass,
   ExternalLink,
   FileCheck2,
   Globe2,
-  Layers,
   Play,
   RefreshCw,
   Scale,
@@ -22,8 +17,8 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
-import { BenchmarkSummary, EvaluationSummary, ParityGapReport, SupportedLanguage } from "@/types";
-import { getBenchmarks, getEvaluationReport, listEvaluations } from "@/lib/api";
+import { ParityGapReport, SupportedLanguage } from "@/types";
+import { getEvaluationReport, listEvaluations } from "@/lib/api";
 import { ParityCard } from "@/components/ParityCard";
 import { ParityBarChart } from "@/components/ParityBarChart";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -391,20 +386,15 @@ const FALLBACK_TASKS = [
 ];
 
 export default function ShipcraftLanguageGapPage() {
-  const [runs, setRuns] = useState<EvaluationSummary[]>([]);
   const [latestReport, setLatestReport] = useState<ParityGapReport | null>(null);
   const [activeTaskIndex, setActiveTaskIndex] = useState<number>(0);
   const [activeComparisonLang, setActiveComparisonLang] = useState<SupportedLanguage>("hi");
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
   const handleRefresh = async () => {
     setLoading(true);
-    setError(null);
     try {
       const evalRuns = await listEvaluations();
-      setRuns(evalRuns);
-
       const completedRun = evalRuns.find((r) => r.status === "completed" && r.response_count > 0);
       if (completedRun) {
         try {
@@ -414,8 +404,8 @@ export default function ShipcraftLanguageGapPage() {
           // Report not ready yet
         }
       }
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Failed to connect to LanguageGap backend API");
+    } catch {
+      // Backend unavailable or request failed
     } finally {
       setLoading(false);
     }
@@ -428,7 +418,6 @@ export default function ShipcraftLanguageGapPage() {
       try {
         const evalRuns = await listEvaluations().catch(() => []);
         if (ignore) return;
-        setRuns(evalRuns);
 
         const completedRun = evalRuns.find((r) => r.status === "completed" && r.response_count > 0);
         if (completedRun) {
@@ -439,10 +428,8 @@ export default function ShipcraftLanguageGapPage() {
             // Report pending
           }
         }
-      } catch (err: unknown) {
-        if (!ignore) {
-          setError(err instanceof Error ? err.message : "Backend offline — displaying verified baseline dataset.");
-        }
+      } catch {
+        // Backend unavailable
       } finally {
         if (!ignore) {
           setLoading(false);

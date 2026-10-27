@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Sparkles, Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { getHealth } from "@/lib/api";
 
 export function Navbar() {
@@ -34,7 +34,12 @@ export function Navbar() {
           <Link href="/" className="group flex items-center gap-2.5">
             <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-[#2C241D] to-[#7A5832] border border-[#F0A24C]/40 text-[#F0A24C] shadow-[0_0_15px_rgba(240,162,76,0.25)] transition-transform duration-300 group-hover:scale-105">
               <span className="font-mono text-xs font-bold tracking-tighter text-white">LG</span>
-              <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-[#F0A24C] ring-2 ring-[#0D0D0D]" />
+              <span
+                className={`absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full ring-2 ring-[#0D0D0D] transition-colors ${
+                  isHealthy ? "bg-[#F0A24C]" : "bg-[#717171]"
+                }`}
+                title={`Provider Status: ${providerStatus}`}
+              />
             </div>
             <div className="flex items-center gap-2">
               <span className="text-sm sm:text-base font-normal tracking-tight text-white group-hover:text-white transition-colors">
