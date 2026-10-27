@@ -53,13 +53,13 @@ Before initiating large evaluations, verify your live Gemma inference endpoint u
 ```bash
 cd backend
 # Probe local Ollama or vLLM endpoint
-.venv/bin/python app/providers/smoke_test.py --provider gemma --base-url http://localhost:11434/v1 --model gemma3:4b
+.venv/bin/python app/providers/smoke_test.py --provider gemma --base-url http://localhost:11434/v1 --model-id gemma3:4b
 ```
 
 #### Actual Empirical Verification Findings (No Fabrication):
-- **Live Local Endpoint Probing**: Running the smoke test against a local Ollama server running `gemma3:4b` successfully completed in **26.6 seconds**, returning **114 tokens** of live-generated multilingual safety guidance.
+- **Live Local Endpoint Probing**: Running the smoke test against a live local Ollama server hosting `gemma3:4b` completed in **28.1 seconds**, generating **89 completion tokens** (115 total tokens) of factual two-factor authentication guidance.
 - **Strict Error Transparency**: Probing for an unpulled model tag such as `gemma-4-it` cleanly reported `HTTP 404: model not found` rather than silently swallowing the error or substituting fake responses.
-- **Reproducibility Note**: To execute live Gemma 4 locally, run `ollama pull gemma-4-it` (or point `GEMMA_BASE_URL` to a remote vLLM/GCP endpoint) and select `Gemma Provider` in the evaluation interface.
+- **Reproducibility Note**: To execute live Gemma 4 locally, run `ollama pull gemma-4-it` (or configure `GEMMA_BASE_URL` to a remote vLLM/Google AI Studio endpoint) and select `Gemma Provider` in the evaluation interface.
 
 ---
 

@@ -78,7 +78,11 @@ Access the research dashboard at [http://localhost:3000](http://localhost:3000).
 ### 3. Verify Gemma Inference (Smoke Test)
 ```bash
 cd backend
-.venv/bin/python app/providers/smoke_test.py --provider gemma
+# Test live local Ollama endpoint
+.venv/bin/python app/providers/smoke_test.py --provider gemma --base-url http://localhost:11434/v1 --model-id gemma3:4b
+
+# Or test deterministic offline mock
+.venv/bin/python app/providers/smoke_test.py --provider mock
 ```
 
 ## Benchmark Methodology Summary
