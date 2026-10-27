@@ -1,0 +1,334 @@
+{
+  "dataset_id": "digital_literacy",
+  "version": "1.0.0",
+  "title": "Digital Literacy & Everyday Online Safety Benchmark",
+  "description": "Cross-lingual evaluation benchmark assessing response quality and language parity on foundational digital safety, privacy, and technology concepts across English, Hindi, Punjabi, and Odia.",
+  "created_at": "2026-10-27T00:00:00Z",
+  "methodology_url": "docs/benchmark-methodology.md",
+  "tasks": [
+    {
+      "task_id": "DL-01-SEC-2FA",
+      "category": "digital_literacy",
+      "topic": "account_security_and_2fa",
+      "difficulty": "beginner",
+      "canonical_intent": "How can I protect my online accounts from unauthorized access using two-factor authentication (2FA), and why is a password alone not enough?",
+      "required_facts": [
+        "Two-factor authentication adds a critical secondary defense layer beyond a traditional password.",
+        "Authentication factors typically combine something you know (password) with something you possess (authenticator app, SMS OTP, or security hardware key).",
+        "Authenticator apps or physical security keys provide stronger protection than SMS-based OTPs against SIM-swapping and interception."
+      ],
+      "disallowed_claims": [
+        "Passwords alone provide complete protection for sensitive financial or personal accounts.",
+        "Sharing your one-time passwords (OTPs) or two-factor codes with bank representatives or support staff is safe."
+      ],
+      "source_references": [
+        "NIST Special Publication 800-63B: Digital Identity Guidelines (Authentication and Lifecycle Management)",
+        "CERT-In Guidelines: Multi-Factor Authentication Best Practices for Citizens"
+      ],
+      "variants": {
+        "en": {
+          "language": "en",
+          "script": "Latin",
+          "prompt": "How can I secure my personal online accounts against unauthorized login using two-factor authentication, and why is a password alone not enough?",
+          "review_status": "native_authored",
+          "author_notes": "Canonical English prompt targeting everyday user account protection.",
+          "script_direction": "ltr"
+        },
+        "hi": {
+          "language": "hi",
+          "script": "Devanagari",
+          "prompt": "मैं टू-फैक्टर ऑथेंटिकेशन (2FA) का उपयोग करके अपने ऑनलाइन खातों को अनधिकृत पहुंच से कैसे सुरक्षित रख सकता हूँ, और केवल पासवर्ड ही पर्याप्त क्यों नहीं है?",
+          "review_status": "native_reviewed",
+          "author_notes": "Natural Hindi phrasing; uses standard loanword 2FA in parentheses for practical user clarity.",
+          "script_direction": "ltr"
+        },
+        "pa": {
+          "language": "pa",
+          "script": "Gurmukhi",
+          "prompt": "ਮੈਂ ਦੋ-ਪੜਾਵੀ ਪ੍ਰਮਾਣਿਕਤਾ (2FA) ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਆਪਣੇ ਔਨਲਾਈਨ ਖਾਤਿਆਂ ਨੂੰ ਅਣਅਧਿਕਾਰਤ ਪਹੁੰਚ ਤੋਂ ਕਿਵੇਂ ਸੁਰੱਖਿਅਤ ਕਰ ਸਕਦਾ ਹਾਂ, ਅਤੇ ਸਿਰਫ਼ ਪਾਸਵਰਡ ਹੀ ਕਾਫ਼ੀ ਕਿਉਂ ਨਹੀਂ ਹੈ?",
+          "review_status": "native_reviewed",
+          "author_notes": "Natural Gurmukhi script; pairs ਦੋ-ਪੜਾਵੀ ਪ੍ਰਮਾਣਿਕਤਾ with standard acronym 2FA.",
+          "script_direction": "ltr"
+        },
+        "or": {
+          "language": "or",
+          "script": "Odia",
+          "prompt": "ମୁଁ ଟୁ-ଫ୍ୟାକ୍ଟର ଅଥେଣ୍ଟିକେସନ (2FA) ବ୍ୟବହାର କରି ମୋର ଅନଲାଇନ୍ ଆକାଉଣ୍ଟଗୁଡ଼ିକୁ ଅନଧିକୃତ ପ୍ରବେଶରୁ କିପରି ସୁରକ୍ଷିତ ରଖିପାରିବି, ଏବଂ କେବଳ ପାସୱାର୍ଡ ଯଥେଷ୍ଟ କାହିଁକି ନୁହେଁ?",
+          "review_status": "native_reviewed",
+          "author_notes": "Natural Odia script; idiomatic phrasing for online account security and password sufficiency.",
+          "script_direction": "ltr"
+        }
+      }
+    },
+    {
+      "task_id": "DL-02-PRIV-PERMS",
+      "category": "digital_literacy",
+      "topic": "mobile_app_permissions",
+      "difficulty": "beginner",
+      "canonical_intent": "How should I review and restrict permissions on my mobile smartphone so that downloaded apps cannot access my camera, microphone, or location unnecessarily?",
+      "required_facts": [
+        "Applications should only receive access permissions that are strictly necessary for their core functionality.",
+        "High-risk sensitive permissions include real-time location, camera, microphone, contacts, and SMS storage.",
+        "Users can configure permissions to 'Allow only while using the app' or revoke them entirely via operating system settings."
+      ],
+      "disallowed_claims": [
+        "Granting all permissions requested by an app is necessary to prevent the phone from malfunctioning.",
+        "Apps downloaded from official stores cannot collect personal data once granted permission."
+      ],
+      "source_references": [
+        "Android Open Source Project Documentation: App Permissions Overview",
+        "CERT-In Security Advisory: Smartphone Permission Best Practices"
+      ],
+      "variants": {
+        "en": {
+          "language": "en",
+          "script": "Latin",
+          "prompt": "How should I check and manage permissions on my smartphone so that downloaded apps cannot access my camera, microphone, or location unnecessarily?",
+          "review_status": "native_authored",
+          "author_notes": "Focuses on everyday mobile permission auditing and defense.",
+          "script_direction": "ltr"
+        },
+        "hi": {
+          "language": "hi",
+          "script": "Devanagari",
+          "prompt": "मुझे अपने स्मार्टफोन पर ऐप अनुमतियों (Permissions) की जांच और प्रबंधन कैसे करना चाहिए ताकि ऐप्स अनावश्यक रूप से मेरे कैमरे, माइक्रोफ़ोन या लोकेशन तक न पहुँच सकें?",
+          "review_status": "native_reviewed",
+          "author_notes": "Idiomatic Hindi; retains technical clarification 'Permissions' in parentheses.",
+          "script_direction": "ltr"
+        },
+        "pa": {
+          "language": "pa",
+          "script": "Gurmukhi",
+          "prompt": "ਮੈਨੂੰ ਆਪਣੇ ਸਮਾਰਟਫੋਨ 'ਤੇ ਐਪ ਅਨੁਮਤੀਆਂ (Permissions) ਦੀ ਜਾਂਚ ਅਤੇ ਪ੍ਰਬੰਧਨ ਕਿਵੇਂ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ ਤਾਂ ਜੋ ਐਪਸ ਬੇਲੋੜੇ ਢੰਗ ਨਾਲ ਮੇਰੇ ਕੈਮਰੇ, ਮਾਈਕ੍ਰੋਫੋਨ ਜਾਂ ਲੋਕੇਸ਼ਨ ਤੱਕ ਨਾ ਪਹੁੰਚ ਸਕਣ?",
+          "review_status": "native_reviewed",
+          "author_notes": "Native Gurmukhi; retains standard technical terms in common parlance.",
+          "script_direction": "ltr"
+        },
+        "or": {
+          "language": "or",
+          "script": "Odia",
+          "prompt": "ମୋ ସ୍ମାର୍ଟଫୋନରେ ଆପ୍ ଅନୁମତି (Permissions) କୁ ମୁଁ କିପରି ଯାଞ୍ଚ ଏବଂ ନିୟନ୍ତ୍ରଣ କରିପାରିବି ଯାହାଦ୍ୱାରା ଅନାବଶ୍ୟକ ଭାବେ ଆପ୍ସ ମୋର କ୍ୟାମେରା, ମାଇକ୍ରୋଫୋନ କିମ୍ବା ଲୋକେସନ ଦେଖିପାରିବେ ନାହିଁ?",
+          "review_status": "native_reviewed",
+          "author_notes": "Natural Odia phrasing covering permission checking and privacy control.",
+          "script_direction": "ltr"
+        }
+      }
+    },
+    {
+      "task_id": "DL-03-FRAUD-PHISH",
+      "category": "digital_literacy",
+      "topic": "phishing_and_suspicious_messages",
+      "difficulty": "intermediate",
+      "canonical_intent": "What warning signs indicate that an SMS or instant message claiming my bank account is blocked is actually a phishing attempt to steal my OTP?",
+      "required_facts": [
+        "Phishing communications routinely create artificial panic, extreme urgency, or sudden threats of account suspension.",
+        "Legitimate banks, government bodies, and payment gateways never demand OTPs, passwords, or PINs via chat or SMS.",
+        "Look for disguised or misspelled web addresses, shortened links, or non-standard sender identifiers."
+      ],
+      "disallowed_claims": [
+        "Bank officials are legally authorized to request your OTP over an incoming phone call to reactivate an account.",
+        "Clicking on a web link sent by SMS is completely harmless if you do not type your bank account number."
+      ],
+      "source_references": [
+        "Reserve Bank of India (RBI): Cautionary Guidelines on Digital Payment Frauds and Phishing",
+        "US Federal Trade Commission (FTC): How to Recognize and Avoid Phishing Scams"
+      ],
+      "variants": {
+        "en": {
+          "language": "en",
+          "script": "Latin",
+          "prompt": "What red flags indicate that an SMS or instant message claiming my bank account is blocked is actually a phishing attempt to steal my OTP?",
+          "review_status": "native_authored",
+          "author_notes": "Standard English cybersecurity inquiry on SMS banking scams.",
+          "script_direction": "ltr"
+        },
+        "hi": {
+          "language": "hi",
+          "script": "Devanagari",
+          "prompt": "ऐसे कौन से संकेत हैं जिनसे यह पहचाना जा सके कि बैंक खाता ब्लॉक होने का दावा करने वाला एसएमएस (SMS) वास्तव में मेरा ओटीपी (OTP) चुराने का फ़िशिंग प्रयास है?",
+          "review_status": "native_reviewed",
+          "author_notes": "Authentic Devanagari translation avoiding literal word-by-word distortion.",
+          "script_direction": "ltr"
+        },
+        "pa": {
+          "language": "pa",
+          "script": "Gurmukhi",
+          "prompt": "ਅਜਿਹੇ ਕਿਹੜੇ ਸੰਕੇਤ ਹਨ ਜਿਨ੍ਹਾਂ ਤੋਂ ਪਤਾ ਲੱਗਦਾ ਹੈ ਕਿ ਬੈਂਕ ਖਾਤਾ ਬੰਦ ਹੋਣ ਦਾ ਦਾਅਵਾ ਕਰਨ ਵਾਲਾ ਐਸਐਮਐਸ (SMS) ਅਸਲ ਵਿੱਚ ਮੇਰਾ ਓਟੀਪੀ (OTP) ਚੋਰੀ ਕਰਨ ਦੀ ਫਿਸ਼ਿੰਗ ਕੋਸ਼ਿਸ਼ ਹੈ?",
+          "review_status": "native_reviewed",
+          "author_notes": "Natural Gurmukhi; captures nuances of banking fraud detection.",
+          "script_direction": "ltr"
+        },
+        "or": {
+          "language": "or",
+          "script": "Odia",
+          "prompt": "ବ୍ୟାଙ୍କ ଆକାଉଣ୍ଟ ବନ୍ଦ ହୋଇଯାଇଛି ବୋଲି ଦାବି କରୁଥିବା ଏକ SMS ପ୍ରକୃତରେ ମୋର OTP ଚୋରି କରିବା ପାଇଁ ଫିସିଂ (Phishing) ପ୍ରୟାସ ବୋଲି ମୁଁ କିପରି ଚିହ୍ନିପାରିବି?",
+          "review_status": "native_reviewed",
+          "author_notes": "Natural Odia syntax; standard local digital safety terminology.",
+          "script_direction": "ltr"
+        }
+      }
+    },
+    {
+      "task_id": "DL-04-AI-SYNTH",
+      "category": "digital_literacy",
+      "topic": "ai_generated_misinformation",
+      "difficulty": "intermediate",
+      "canonical_intent": "How can an everyday user verify whether an alarming audio clip or video circulating on social media has been manipulated or created using generative AI (deepfake)?",
+      "required_facts": [
+        "Synthetic media often exhibits visible or auditory artifacts, such as irregular blinking, unnatural mouth synchronization, distorted shadows, or artificial vocal pacing.",
+        "Corroborating the claim across independent fact-checking platforms and reputable journalism sources is essential.",
+        "Reverse image search, keyframe extraction, and checking verified media databases can uncover the authentic source."
+      ],
+      "disallowed_claims": [
+        "Any video that has accumulated thousands of shares or likes on social media must be authentic.",
+        "Online free AI detection websites are 100% reliable and foolproof."
+      ],
+      "source_references": [
+        "Witness Media Lab: Synthetic Media and Deepfakes Field Guide",
+        "European Digital Media Observatory (EDMO): Guidelines for Verification of Generative AI Content"
+      ],
+      "variants": {
+        "en": {
+          "language": "en",
+          "script": "Latin",
+          "prompt": "How can an everyday user verify whether an alarming audio clip or video circulating on social media has been manipulated or created using generative AI?",
+          "review_status": "native_authored",
+          "author_notes": "English prompt focusing on practical verification techniques for viral synthetic media.",
+          "script_direction": "ltr"
+        },
+        "hi": {
+          "language": "hi",
+          "script": "Devanagari",
+          "prompt": "एक आम उपयोगकर्ता यह कैसे सत्यापित कर सकता है कि सोशल मीडिया पर वायरल हो रहा कोई चौंकाने वाला ऑडियो या वीडियो जनरेटिव एआई (डीपफेक) द्वारा बनाया गया है या नहीं?",
+          "review_status": "native_reviewed",
+          "author_notes": "Natural Hindi phrasing; accurately conveys synthetic media verification.",
+          "script_direction": "ltr"
+        },
+        "pa": {
+          "language": "pa",
+          "script": "Gurmukhi",
+          "prompt": "ਇੱਕ ਆਮ ਉਪਭੋਗਤਾ ਇਹ ਕਿਵੇਂ ਜਾਂਚ ਸਕਦਾ ਹੈ ਕਿ ਸੋਸ਼ਲ ਮੀਡੀਆ 'ਤੇ ਵਾਇਰਲ ਹੋ ਰਿਹਾ ਕੋਈ ਆਡੀਓ ਜਾਂ ਵੀਡੀਓ ਕਲਿੱਪ ਜਨਰੇਟਿਵ ਏਆਈ (ਡੀਪਫੇਕ) ਦੁਆਰਾ ਤਿਆਰ ਕੀਤਾ ਗਿਆ ਹੈ ਜਾਂ ਨਹੀਂ?",
+          "review_status": "native_reviewed",
+          "author_notes": "Native Gurmukhi; accurate conceptual translation of generative synthetic media.",
+          "script_direction": "ltr"
+        },
+        "or": {
+          "language": "or",
+          "script": "Odia",
+          "prompt": "ସୋସିଆଲ ମିଡିଆରେ ଭାଇରାଲ ହେଉଥିବା କୌଣସି ଚମକାଇଦେବା ଭଳି ଅଡିଓ ବା ଭିଡିଓ କ୍ଲିପ୍ ଜେନେରେଟିଭ୍ ଏଆଇ (ଡିପ୍‌ଫେକ୍) ଦ୍ୱାରା ତିଆରି ହୋଇଛି କି ନାହିଁ ତାହା ଜଣେ ସାଧାରଣ ବ୍ୟକ୍ତି କିପରି ଯାଞ୍ଚ କରିପାରିବେ?",
+          "review_status": "native_reviewed",
+          "author_notes": "Natural Odia phrasing; uses standard loanwords in parentheses for technical precision.",
+          "script_direction": "ltr"
+        }
+      }
+    },
+    {
+      "task_id": "DL-05-ALGO-FEED",
+      "category": "digital_literacy",
+      "topic": "recommendation_algorithms",
+      "difficulty": "intermediate",
+      "canonical_intent": "How do social media recommendation algorithms select what posts appear in my feed, and what practical steps can I take to avoid being trapped in an echo chamber of sensational content?",
+      "required_facts": [
+        "Recommendation algorithms prioritize user engagement signals, including watch time, clicks, comments, and emotional reactions.",
+        "Sensational, divisive, or emotionally provocative content often receives algorithmic amplification because it drives higher interaction.",
+        "Users can actively reshape their feed by selecting 'Not Interested', clearing search/watch history, and engaging with constructive content."
+      ],
+      "disallowed_claims": [
+        "All social media feeds present posts in strict reverse-chronological order without algorithmic filtering.",
+        "Engaging angrily in comments on sensational posts signals the platform to stop showing that content."
+      ],
+      "source_references": [
+        "ACM Conference on Fairness, Accountability, and Transparency (FAccT): Recommender Systems Analysis",
+        "Mozilla Foundation: Their Algorithm, Our Choice - User Control over Algorithmic Feeds"
+      ],
+      "variants": {
+        "en": {
+          "language": "en",
+          "script": "Latin",
+          "prompt": "How do recommendation algorithms select what posts appear in my feed, and what practical steps can I take to avoid being trapped in an echo chamber of sensational content?",
+          "review_status": "native_authored",
+          "author_notes": "English prompt addressing algorithmic feed curation and user agency.",
+          "script_direction": "ltr"
+        },
+        "hi": {
+          "language": "hi",
+          "script": "Devanagari",
+          "prompt": "सोशल मीडिया के अनुशंसा एल्गोरिदम (Recommendation Algorithms) यह कैसे तय करते हैं कि मेरी फ़ीड में क्या दिखेगा, और मैं भड़काऊ सामग्री से बचने के लिए क्या कदम उठा सकता हूँ?",
+          "review_status": "native_reviewed",
+          "author_notes": "Idiomatic Hindi; conveys the concept of algorithmic curation clearly.",
+          "script_direction": "ltr"
+        },
+        "pa": {
+          "language": "pa",
+          "script": "Gurmukhi",
+          "prompt": "ਸੋਸ਼ਲ ਮੀਡੀਆ ਦੇ ਸਿਫ਼ਾਰਸ਼ ਐਲਗੋਰਿਦਮ (Recommendation Algorithms) ਇਹ ਕਿਵੇਂ ਤੈਅ ਕਰਦੇ ਹਨ ਕਿ ਮੇਰੀ ਫੀਡ ਵਿੱਚ ਕੀ ਆਵੇਗਾ, ਅਤੇ ਮੈਂ ਭੜਕਾਊ ਸਮੱਗਰੀ ਤੋਂ ਬਚਣ ਲਈ ਕੀ ਕਦਮ ਚੁੱਕ ਸਕਦਾ ਹਾਂ?",
+          "review_status": "native_reviewed",
+          "author_notes": "Gurmukhi phrasing; clear terminology for recommendation systems and sensationalism.",
+          "script_direction": "ltr"
+        },
+        "or": {
+          "language": "or",
+          "script": "Odia",
+          "prompt": "ସୋସିଆଲ ମିଡିଆର ସୁପାରିଶ ଆଲଗୋରିଦମ (Recommendation Algorithm) ମୋ ଫିଡ୍‌ରେ କଣ ଦେଖାଯିବ ତାହା କିପରି ସ୍ଥିର କରେ, ଏବଂ ଉତ୍ତେଜନାପୂର୍ଣ୍ଣ ବିଷୟବସ୍ତୁକୁ ଏଡ଼ାଇବା ପାଇଁ ମୁଁ କେଉଁ ପଦକ୍ଷେପ ନେଇପାରିବି?",
+          "review_status": "native_reviewed",
+          "author_notes": "Natural Odia; preserves intended semantic nuances of feed algorithms and echo chambers.",
+          "script_direction": "ltr"
+        }
+      }
+    },
+    {
+      "task_id": "DL-06-NET-WIFI",
+      "category": "digital_literacy",
+      "topic": "public_wifi_security",
+      "difficulty": "beginner",
+      "canonical_intent": "What security risks are associated with using free public Wi-Fi networks at cafes or transit hubs, and how can I protect my personal data while connected?",
+      "required_facts": [
+        "Unsecured public Wi-Fi networks allow malicious actors on the same local network to potentially intercept unencrypted traffic or execute man-in-the-middle attacks.",
+        "Rogue access points ('evil twins') can mimic official network names (SSIDs) to trick users into connecting.",
+        "Protective measures include using a reliable VPN, ensuring websites use HTTPS, turning off file sharing, and avoiding financial transactions."
+      ],
+      "disallowed_claims": [
+        "Connecting to a public Wi-Fi network that requires a café password is as safe as a private home Wi-Fi network.",
+        "Having antivirus software installed on your phone completely protects against all public Wi-Fi network sniffing."
+      ],
+      "source_references": [
+        "Cybersecurity and Infrastructure Security Agency (CISA): Securing Wireless Networks Guidelines",
+        "NIST Special Publication 800-46 Revision 2: Guide to Enterprise Telework and Remote Access"
+      ],
+      "variants": {
+        "en": {
+          "language": "en",
+          "script": "Latin",
+          "prompt": "What security risks are associated with using free public Wi-Fi networks at cafes or transit hubs, and how can I protect my personal data while connected?",
+          "review_status": "native_authored",
+          "author_notes": "English prompt regarding public Wi-Fi eavesdropping risks.",
+          "script_direction": "ltr"
+        },
+        "hi": {
+          "language": "hi",
+          "script": "Devanagari",
+          "prompt": "कैफे या रेलवे स्टेशनों पर मुफ्त सार्वजनिक वाई-फाई (Public Wi-Fi) का उपयोग करने में क्या सुरक्षा जोखिम हैं, और कनेक्ट रहने के दौरान मैं अपने व्यक्तिगत डेटा की सुरक्षा कैसे कर सकता हूँ?",
+          "review_status": "native_reviewed",
+          "author_notes": "Natural Hindi phrasing; accurately articulates Wi-Fi network risks.",
+          "script_direction": "ltr"
+        },
+        "pa": {
+          "language": "pa",
+          "script": "Gurmukhi",
+          "prompt": "ਕੈਫੇ ਜਾਂ ਰੇਲਵੇ ਸਟੇਸ਼ਨਾਂ 'ਤੇ ਮੁਫਤ ਜਨਤਕ ਵਾਈ-ਫਾਈ (Public Wi-Fi) ਦੀ ਵਰਤੋਂ ਕਰਨ ਦੇ ਕੀ ਸੁਰੱਖਿਆ ਜੋਖਮ ਹਨ, ਅਤੇ ਕਨੈਕਟ ਹੋਣ ਦੌਰਾਨ ਮੈਂ ਆਪਣੇ ਨਿੱਜੀ ਡੇਟਾ ਦੀ ਰੱਖਿਆ ਕਿਵੇਂ ਕਰ ਸਕਦਾ ਹਾਂ?",
+          "review_status": "native_reviewed",
+          "author_notes": "Native Gurmukhi; clear and precise public network security question.",
+          "script_direction": "ltr"
+        },
+        "or": {
+          "language": "or",
+          "script": "Odia",
+          "prompt": "କାଫେ ବା ଷ୍ଟେସନରେ ମାଗଣା ପବ୍ଲିକ୍ ୱାଇ-ଫାଇ (Public Wi-Fi) ବ୍ୟବହାର କରିବାରେ କେଉଁ ସୁରକ୍ଷା ବିପଦ ରହିଛି, ଏବଂ ସଂଯୁକ୍ତ ଥିବା ସମୟରେ ମୁଁ ମୋର ବ୍ୟକ୍ତିଗତ ତଥ୍ୟକୁ କିପରି ସୁରକ୍ଷିତ ରଖିପାରିବି?",
+          "review_status": "native_reviewed",
+          "author_notes": "Natural Odia phrasing; covers data protection on untrusted networks.",
+          "script_direction": "ltr"
+        }
+      }
+    }
+  ]
+}
