@@ -18,6 +18,7 @@ export default function EvaluateSetupPage() {
   const [isLaunching, setIsLaunching] = useState<boolean>(false);
   const [activeRunId, setActiveRunId] = useState<string | null>(null);
   const [runStatus, setRunStatus] = useState<string>("pending");
+  const [completedResponses, setCompletedResponses] = useState<number>(0);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
@@ -42,13 +43,14 @@ export default function EvaluateSetupPage() {
       try {
         const detail = await getEvaluation(activeRunId);
         setRunStatus(detail.run.status);
+        setCompletedResponses(detail.responses?.length || 0);
         if (detail.run.status === "completed") {
           clearInterval(interval);
         }
       } catch {
         // ignore polling errors
       }
-    }, 1500);
+    }, 1200);
 
     return () => clearInterval(interval);
   }, [activeRunId, runStatus]);
@@ -74,6 +76,7 @@ export default function EvaluateSetupPage() {
 
     setIsLaunching(true);
     setErrorMsg(null);
+    setCompletedResponses(0);
     try {
       const run = await createEvaluation(
         {
@@ -90,6 +93,7 @@ export default function EvaluateSetupPage() {
       );
       setActiveRunId(run.id);
       setRunStatus(run.status);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err: unknown) {
       setErrorMsg(err instanceof Error ? err.message : "Failed to start evaluation");
     } finally {
@@ -139,13 +143,14 @@ export default function EvaluateSetupPage() {
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono text-[#F0A24C] bg-[#2C241D] border border-[#F0A24C]/40">
-                  EVALUATION IN FLIGHT
+                  {runStatus === "completed" ? "EVALUATION COMPLETE" : "EVALUATION IN FLIGHT"}
                 </span>
                 <h3 className="text-base font-normal text-white mt-2">
                   Cohort Run: <span className="font-mono text-sm text-[#F0A24C]">{activeRunId}</span>
                 </h3>
                 <p className="text-xs text-[#7D7D7D] mt-1">
-                  Status: <strong className="capitalize text-white">{runStatus}</strong> • Evaluating {selectedTasks.length} tasks across 4 scripts
+                  Status: <strong className="capitalize text-white">{runStatus}</strong> •{" "}
+                  {completedResponses} / {selectedTasks.length * 4} Responses Evaluated across 4 scripts
                 </p>
               </div>
 
@@ -153,12 +158,12 @@ export default function EvaluateSetupPage() {
                 {runStatus === "running" || runStatus === "pending" ? (
                   <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-[#131313] px-4 py-2 text-xs font-medium text-white shadow-lg">
                     <Loader2 className="h-4 w-4 animate-spin text-[#F0A24C]" />
-                    <span>Evaluating Gemma 4 Responses...</span>
+                    <span>Evaluating {provider === "gemma" ? "Gemma 4" : "Cohort"} Responses ({completedResponses}/{selectedTasks.length * 4})...</span>
                   </div>
                 ) : runStatus === "completed" ? (
                   <Link
                     href={`/evaluations/${activeRunId}`}
-                    className="btn-amber-glass inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-normal"
+                    className="btn-amber-glass inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-normal shadow-[0_0_20px_rgba(240,162,76,0.3)] animate-pulse"
                   >
                     <CheckCircle2 className="h-4 w-4 text-[#F0A24C]" />
                     <span>View Comparison Matrix</span>
@@ -168,6 +173,20 @@ export default function EvaluateSetupPage() {
                   <span className="text-xs text-red-400 font-semibold">Evaluation Run Failed</span>
                 )}
               </div>
+            </div>
+
+            {/* Visual Progress Bar */}
+            <div className="w-full bg-[#131313] rounded-full h-1.5 mt-4 overflow-hidden border border-white/5">
+              <div
+                className="bg-[#F0A24C] h-full transition-all duration-500 rounded-full shadow-[0_0_10px_#F0A24C]"
+                style={{
+                  width: `${
+                    runStatus === "completed"
+                      ? 100
+                      : Math.max(8, Math.min(100, Math.round((completedResponses / (selectedTasks.length * 4 || 1)) * 100)))
+                  }%`,
+                }}
+              />
             </div>
           </div>
         )}

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Download, CheckCircle2, ShieldCheck, Cpu, Hash, FileJson, Check } from "lucide-react";
+import { Download, ShieldCheck, Cpu, FileJson, Check } from "lucide-react";
 import { EvaluationPassportResponse } from "@/types";
 
 interface ReproducibilityPassportCardProps {
