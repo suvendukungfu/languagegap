@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #f8fafc;
+    --foreground: #0f172a;
+    --card: #ffffff;
+    --card-foreground: #0f172a;
+    --border: #e2e8f0;
+    --primary: #2563eb;
+    --primary-foreground: #ffffff;
+  }
+
+  .dark {
+    --background: #090d16;
+    --foreground: #f8fafc;
+    --card: #111827;
+    --card-foreground: #f8fafc;
+    --border: #1f2937;
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+  }
+}
+
+/* Indic Script Font Family Fallbacks */
+.font-devanagari {
+  font-family: 'Noto Sans Devanagari', 'Kohinoor Devanagari', 'Nirmala UI', sans-serif;
+  line-height: 1.6;
+}
+
+.font-gurmukhi {
+  font-family: 'Noto Sans Gurmukhi', 'Kohinoor Gurmukhi', 'Raavi', sans-serif;
+  line-height: 1.6;
+}
+
+.font-odia {
+  font-family: 'Noto Sans Oriya', 'Kalinga', 'Nirmala UI', sans-serif;
+  line-height: 1.65;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
