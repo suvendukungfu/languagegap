@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main, feat/*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-lint-and-test:
+    name: Backend Test Suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Backend Dependencies
+        run: |
+          if [ -f backend/requirements.txt ]; then
+            python -m pip install --upgrade pip
+            pip install -r backend/requirements.txt
+          else
+            echo "backend/requirements.txt not present yet (Phase 1)"
+          fi
+
+      - name: Run Backend Pytest
+        run: |
+          if [ -d backend/tests ]; then
+            cd backend && pytest -v
+          else
+            echo "backend/tests not present yet (Phase 1)"
+          fi
+
+  frontend-lint-and-build:
+    name: Frontend Lint & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Frontend Dependencies
+        run: |
+          if [ -f frontend/package.json ]; then
+            cd frontend && npm ci
+          else
+            echo "frontend/package.json not present yet (Phase 1)"
+          fi
+
+      - name: Build Frontend
+        run: |
+          if [ -f frontend/package.json ]; then
+            cd frontend && npm run build
+          else
+            echo "frontend not present yet (Phase 1)"
+          fi
