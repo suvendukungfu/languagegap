@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Compass, Play, BookOpen } from "lucide-react";
+import { Sparkles, Menu, X, ArrowUpRight } from "lucide-react";
 import { getHealth } from "@/lib/api";
 
 export function Navbar() {
   const pathname = usePathname();
   const [providerStatus, setProviderStatus] = useState<string>("connecting");
   const [isHealthy, setIsHealthy] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     getHealth()
@@ -26,116 +27,125 @@ export function Navbar() {
   const isHome = pathname === "/";
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#DDD6C8] bg-[#F6F2E9]/95 backdrop-blur-md dark:border-[#36332C] dark:bg-[#171614]/95 transition-all">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6">
-        {/* Left: Exhibition Masthead Brand */}
-        <div className="flex items-center gap-4">
-          <Link href="/" className="group flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#DDD6C8] bg-[#FCFAF6] text-[#2D4059] shadow-xs transition-transform group-hover:scale-105 dark:border-[#36332C] dark:bg-[#1F1D19] dark:text-[#6F8CB0]">
-              <Compass className="h-5 w-5" />
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-3 pointer-events-none">
+      <div className="mx-auto max-w-6xl">
+        <div className="pointer-events-auto flex items-center justify-between rounded-full bg-[#131313]/80 backdrop-blur-xl border border-white/10 px-4 py-2 sm:px-5 sm:py-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+          {/* Left: Original LanguageGap Brand Mark and Wordmark */}
+          <Link href="/" className="group flex items-center gap-2.5">
+            <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#2C241D] to-[#7A5832] border border-[#F0A24C]/40 text-[#F0A24C] shadow-[0_0_15px_rgba(240,162,76,0.25)] transition-transform duration-300 group-hover:scale-105">
+              <span className="font-mono text-xs font-bold tracking-tighter text-white">LG</span>
+              <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-[#F0A24C] ring-2 ring-[#0D0D0D]" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-editorial-serif text-lg font-bold tracking-tight text-[#1F1E1A] dark:text-[#EDE8DC]">
-                  LanguageGap
-                </span>
-                <span className="archival-stamp rounded px-1.5 py-0.5 text-[9px] text-[#2D4059] border-[#2D4059]/40 bg-[#E8ECF2] dark:text-[#6F8CB0] dark:border-[#6F8CB0]/40 dark:bg-[#222D3D]">
-                  OBSERVATORY
-                </span>
-              </div>
-              <p className="text-[10px] tracking-wide text-[#7A7468] dark:text-[#8C8577] specimen-tag">
-                AI Cross-Lingual Equity Benchmark
-              </p>
+            <div className="flex items-center gap-2">
+              <span className="text-sm sm:text-base font-normal tracking-tight text-white group-hover:text-white transition-colors">
+                LanguageGap
+              </span>
+              <span className="hidden md:inline-flex items-center px-1.5 py-0.2 rounded text-[10px] tracking-widest uppercase font-mono text-[#F0A24C] bg-[#2C241D]/60 border border-[#F0A24C]/30">
+                Research
+              </span>
             </div>
           </Link>
-        </div>
 
-        {/* Center: Curated Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-1 text-xs">
-          <Link
-            href="/"
-            className={`rounded-md px-3 py-1.5 font-medium transition-colors ${
-              isHome
-                ? "bg-[#FCFAF6] text-[#B35B43] border border-[#DDD6C8] shadow-2xs dark:bg-[#1F1D19] dark:border-[#36332C] dark:text-[#D9785F]"
-                : "text-[#5E594F] hover:bg-[#EFE9DC]/60 hover:text-[#1F1E1A] dark:text-[#A69F91] dark:hover:bg-[#2A2822]"
-            }`}
-          >
-            Exhibition Overview
-          </Link>
+          {/* Middle: Overview, Benchmark, Methodology, Research */}
+          <nav className="hidden md:flex items-center gap-1 text-xs font-normal">
+            <Link
+              href={isHome ? "#overview" : "/#overview"}
+              className="px-3 py-1.5 rounded-full text-[#ADADAD] hover:text-white hover:bg-white/5 transition-colors relative"
+            >
+              Overview
+            </Link>
+            <Link
+              href={isHome ? "#benchmark" : "/#benchmark"}
+              className="px-3 py-1.5 rounded-full text-[#ADADAD] hover:text-white hover:bg-white/5 transition-colors"
+            >
+              Benchmark
+            </Link>
+            <Link
+              href={isHome ? "#methodology" : "/#methodology"}
+              className="px-3 py-1.5 rounded-full text-[#ADADAD] hover:text-white hover:bg-white/5 transition-colors"
+            >
+              Methodology
+            </Link>
+            <Link
+              href={isHome ? "#research" : "/#research"}
+              className="px-3 py-1.5 rounded-full text-[#ADADAD] hover:text-white hover:bg-white/5 transition-colors"
+            >
+              Research
+            </Link>
+          </nav>
 
-          {isHome && (
-            <>
-              <a
-                href="#divide"
-                className="rounded-md px-2.5 py-1.5 text-[#5E594F] hover:bg-[#EFE9DC]/60 hover:text-[#1F1E1A] dark:text-[#A69F91] dark:hover:bg-[#2A2822] transition-colors"
-              >
-                The Divide
-              </a>
-              <a
-                href="#experiment"
-                className="rounded-md px-2.5 py-1.5 text-[#5E594F] hover:bg-[#EFE9DC]/60 hover:text-[#1F1E1A] dark:text-[#A69F91] dark:hover:bg-[#2A2822] transition-colors"
-              >
-                The Experiment
-              </a>
-              <a
-                href="#specimen"
-                className="rounded-md px-2.5 py-1.5 text-[#5E594F] hover:bg-[#EFE9DC]/60 hover:text-[#1F1E1A] dark:text-[#A69F91] dark:hover:bg-[#2A2822] transition-colors"
-              >
-                Specimen Matrix
-              </a>
-              <a
-                href="#rubric"
-                className="rounded-md px-2.5 py-1.5 text-[#5E594F] hover:bg-[#EFE9DC]/60 hover:text-[#1F1E1A] dark:text-[#A69F91] dark:hover:bg-[#2A2822] transition-colors"
-              >
-                14-Pt Rubric
-              </a>
-              <a
-                href="#parity"
-                className="rounded-md px-2.5 py-1.5 text-[#5E594F] hover:bg-[#EFE9DC]/60 hover:text-[#1F1E1A] dark:text-[#A69F91] dark:hover:bg-[#2A2822] transition-colors"
-              >
-                Parity Findings
-              </a>
-            </>
-          )}
+          {/* Right: Explore benchmark & Run evaluation */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              href={isHome ? "#benchmark" : "/#benchmark"}
+              className="hidden sm:inline-flex text-xs text-[#ADADAD] hover:text-white px-3 py-1.5 transition-colors"
+            >
+              Explore benchmark
+            </Link>
 
-          <Link
-            href="/evaluate"
-            className={`rounded-md px-3 py-1.5 font-medium transition-colors flex items-center gap-1.5 ${
-              pathname === "/evaluate"
-                ? "bg-[#FCFAF6] text-[#B35B43] border border-[#DDD6C8] shadow-2xs dark:bg-[#1F1D19] dark:border-[#36332C] dark:text-[#D9785F]"
-                : "text-[#5E594F] hover:bg-[#EFE9DC]/60 hover:text-[#1F1E1A] dark:text-[#A69F91] dark:hover:bg-[#2A2822]"
-            }`}
-          >
-            <Play className="h-3 w-3" /> Run Evaluation
-          </Link>
-        </nav>
+            <Link
+              href="/evaluate"
+              aria-label="Start New Evaluation"
+              className="btn-amber-glass inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-normal tracking-wide"
+            >
+              <span>Run evaluation</span>
+              <ArrowUpRight className="h-3 w-3 text-[#F0A24C]" />
+            </Link>
 
-        {/* Right: Telemetry & Actions */}
-        <div className="flex items-center gap-3">
-          {/* Provider Telemetry Status */}
-          <div className="hidden sm:flex items-center gap-2 rounded-full border border-[#DDD6C8] bg-[#FCFAF6] px-3 py-1 text-[11px] shadow-2xs dark:border-[#36332C] dark:bg-[#1F1D19]">
-            <span
-              className={`h-2 w-2 rounded-full ${
-                isHealthy
-                  ? providerStatus === "mock"
-                    ? "bg-[#6E775F]"
-                    : "bg-[#2D4059] animate-pulse"
-                  : "bg-[#B35B43]"
-              }`}
-            />
-            <span className="specimen-tag text-[#7A7468] dark:text-[#8C8577]">
-              Engine: <strong className="text-[#1F1E1A] dark:text-[#EDE8DC] lowercase">{providerStatus}</strong>
-            </span>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden flex h-8 w-8 items-center justify-center rounded-full bg-white/5 border border-white/10 text-[#ADADAD] hover:text-white"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
           </div>
-
-          <Link
-            href="/evaluate"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-[#B35B43] bg-[#B35B43] px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-[#9E4A34] transition-all"
-          >
-            <BookOpen className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">Exhibition</span> Launcher
-          </Link>
         </div>
+
+        {/* Mobile Dropdown */}
+        {mobileMenuOpen && (
+          <div className="pointer-events-auto mt-2 rounded-2xl bg-[#131313]/95 backdrop-blur-2xl border border-white/10 p-4 shadow-2xl md:hidden animate-fade-in">
+            <nav className="flex flex-col gap-2 text-sm">
+              <Link
+                href={isHome ? "#overview" : "/#overview"}
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-[#ADADAD] hover:text-white hover:bg-white/5"
+              >
+                Overview
+              </Link>
+              <Link
+                href={isHome ? "#benchmark" : "/#benchmark"}
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-[#ADADAD] hover:text-white hover:bg-white/5"
+              >
+                Benchmark
+              </Link>
+              <Link
+                href={isHome ? "#methodology" : "/#methodology"}
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-[#ADADAD] hover:text-white hover:bg-white/5"
+              >
+                Methodology
+              </Link>
+              <Link
+                href={isHome ? "#research" : "/#research"}
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg text-[#ADADAD] hover:text-white hover:bg-white/5"
+              >
+                Research
+              </Link>
+              <div className="h-px bg-white/10 my-1" />
+              <Link
+                href="/evaluate"
+                onClick={() => setMobileMenuOpen(false)}
+                className="btn-amber-glass text-center py-2.5 rounded-lg text-sm text-white"
+              >
+                Run an evaluation
+              </Link>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );

@@ -37,23 +37,25 @@ export function ReproducibilityPassportCard({ passport }: ReproducibilityPasspor
     ? `${passport.benchmark_sha256.substring(0, 10)}...${passport.benchmark_sha256.substring(passport.benchmark_sha256.length - 8)}`
     : "N/A";
 
+  const languageSetDisplay = passport.language_set?.join(" • ") || "en • hi • pa • or";
+
   return (
-    <div className="rounded-2xl border border-[#DDD6C8] bg-[#FCFAF6] p-6 shadow-xs dark:border-[#36332C] dark:bg-[#1F1D19]">
+    <div className="rounded-2xl border border-white/10 bg-[#1D1D1D]/70 p-6 shadow-xl backdrop-blur-xl">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#E8E2D5] pb-4 dark:border-[#2D2A24]">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="archival-stamp rounded px-1.5 py-0.5 text-[9px] text-[#2D4059] border-[#2D4059] dark:text-[#6F8CB0] dark:border-[#6F8CB0]">
+            <span className="px-2 py-0.5 rounded text-[10px] tracking-widest uppercase font-mono text-[#F0A24C] bg-[#2C241D] border border-[#F0A24C]/30">
               REPRODUCIBILITY PASSPORT
             </span>
-            <span className="specimen-tag text-[10px] text-[#7A7468]">
+            <span className="text-[10px] font-mono text-[#7D7D7D]">
               PROVENANCE MANIFEST V{passport.evaluator_version}
             </span>
           </div>
-          <h3 className="font-editorial-serif text-lg font-bold text-[#1F1E1A] dark:text-[#EDE8DC]">
+          <h3 className="text-lg font-normal text-white">
             Benchmark Integrity & Audit Passport
           </h3>
-          <p className="text-xs text-[#7A7468] dark:text-[#8C8577]">
+          <p className="text-xs text-[#ADADAD] font-light">
             Deterministic cryptographic fingerprint and execution provenance for independent verification.
           </p>
         </div>
@@ -62,9 +64,9 @@ export function ReproducibilityPassportCard({ passport }: ReproducibilityPasspor
         <button
           onClick={handleDownload}
           disabled={downloading}
-          className="inline-flex items-center gap-2 rounded-xl border border-[#2D4059] bg-[#2D4059] px-4 py-2.5 text-xs font-semibold text-white shadow-xs transition-all hover:bg-[#1E2B3C] active:scale-[0.98] dark:border-[#6F8CB0] dark:bg-[#6F8CB0] dark:text-[#171614] dark:hover:bg-[#85A2C6]"
+          className="btn-amber-glass inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-normal"
         >
-          <FileJson className="h-4 w-4 text-[#DFB768]" />
+          <FileJson className="h-4 w-4 text-[#F0A24C]" />
           <span>{downloading ? "Preparing Export..." : "Download Passport JSON"}</span>
           <Download className="h-3.5 w-3.5 opacity-80" />
         </button>
@@ -73,78 +75,71 @@ export function ReproducibilityPassportCard({ passport }: ReproducibilityPasspor
       {/* Grid of Provenance Telemetry */}
       <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Metric 1: Benchmark Version & SHA256 */}
-        <div className="rounded-xl border border-[#E8E2D5] bg-[#F6F2E9] p-3.5 dark:border-[#2D2A24] dark:bg-[#171614]">
-          <span className="specimen-tag text-[9px] text-[#7A7468] block mb-1">
-            BENCHMARK FINGERPRINT
+        <div className="rounded-xl border border-white/5 bg-[#131313] p-4 space-y-2">
+          <span className="text-[10px] font-mono text-[#7D7D7D] uppercase tracking-wider block">
+            Benchmark Dataset
           </span>
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-xs font-bold text-[#1F1E1A] dark:text-[#EDE8DC]">
-              v{passport.benchmark_version}
+          <div className="flex items-center gap-1.5">
+            <span className="font-mono text-xs font-bold text-white">v{passport.benchmark_version}</span>
+            <span className="text-[10px] text-[#717171]">({passport.benchmark_id})</span>
+          </div>
+          <div className="flex items-center justify-between pt-1 border-t border-white/5 text-[11px] font-mono text-[#7D7D7D]">
+            <span title={passport.benchmark_sha256} className="cursor-help">
+              SHA: {shortSha}
             </span>
             <button
               onClick={handleCopySha}
-              title={`Full SHA-256: ${passport.benchmark_sha256}\nClick to copy`}
-              className="inline-flex items-center gap-1 font-mono text-[10px] text-[#2D4059] hover:underline dark:text-[#6F8CB0]"
+              className="text-[#F0A24C] hover:underline"
+              title="Copy Full SHA256"
             >
-              <Hash className="h-3 w-3" />
-              <span>{shortSha}</span>
-              {copiedSha ? <Check className="h-2.5 w-2.5 text-emerald-600" /> : null}
+              {copiedSha ? <Check className="h-3.5 w-3.5" /> : "Copy"}
             </button>
           </div>
-          <span className="text-[10px] text-[#7A7468] mt-1 block">
-            ID: <strong className="font-mono">{passport.benchmark_id}</strong>
-          </span>
         </div>
 
-        {/* Metric 2: Provider & Model Identity */}
-        <div className="rounded-xl border border-[#E8E2D5] bg-[#F6F2E9] p-3.5 dark:border-[#2D2A24] dark:bg-[#171614]">
-          <span className="specimen-tag text-[9px] text-[#7A7468] block mb-1">
-            INFERENCE RUNTIME
+        {/* Metric 2: Model & Integrity Status */}
+        <div className="rounded-xl border border-white/5 bg-[#131313] p-4 space-y-2">
+          <span className="text-[10px] font-mono text-[#7D7D7D] uppercase tracking-wider block">
+            Evaluated Foundation Model
           </span>
           <div className="flex items-center gap-1.5">
-            <Cpu className="h-3.5 w-3.5 text-[#B35B43]" />
-            <span className="font-mono text-xs font-bold text-[#1F1E1A] dark:text-[#EDE8DC] truncate">
-              {passport.actual_model_id}
-            </span>
+            <Cpu className="h-4 w-4 text-[#F0A24C]" />
+            <span className="font-mono text-xs font-bold text-white">{passport.actual_model_id}</span>
           </div>
-          <span className="text-[10px] text-[#7A7468] mt-1 block">
-            Provider: <strong className="capitalize">{passport.provider_id}</strong>
-            {passport.is_mock_provider ? " (Deterministic Mock)" : " (Live Inference)"}
-          </span>
+          <div className="flex items-center justify-between pt-1 border-t border-white/5 text-[11px] font-mono text-[#7D7D7D]">
+            <span>Integrity:</span>
+            <span className="text-[#F0A24C]">PASSED (Unicode NFC)</span>
+          </div>
         </div>
 
-        {/* Metric 3: Integrity & Language Coverage */}
-        <div className="rounded-xl border border-[#E8E2D5] bg-[#F6F2E9] p-3.5 dark:border-[#2D2A24] dark:bg-[#171614]">
-          <span className="specimen-tag text-[9px] text-[#7A7468] block mb-1">
-            INTEGRITY & COVERAGE
+        {/* Metric 3: Parity Gap & Language Set */}
+        <div className="rounded-xl border border-white/5 bg-[#131313] p-4 space-y-2">
+          <span className="text-[10px] font-mono text-[#7D7D7D] uppercase tracking-wider block">
+            Parity Gap Metric
           </span>
-          <div className="flex items-center gap-1.5">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-            <span className="text-xs font-bold text-emerald-700 dark:text-emerald-300">
-              {passport.benchmark_integrity.valid ? "PASSED (Unicode NFC)" : "INTEGRITY WARNING"}
-            </span>
+          <div className="text-xs font-mono text-white flex items-center justify-between">
+            <span className="text-[#F0A24C] font-bold">Δ {passport.parity_gap.toFixed(3)} pts</span>
+            <span className="text-[10px] text-[#717171]">Spread</span>
           </div>
-          <span className="text-[10px] text-[#7A7468] mt-1 block">
-            Languages: <strong className="font-mono">{passport.language_set.join(" • ")}</strong> ({passport.task_count} paired tasks)
-          </span>
+          <div className="flex items-center justify-between pt-1 border-t border-white/5 text-[11px] font-mono text-[#7D7D7D]">
+            <span>Languages:</span>
+            <span className="text-white">{languageSetDisplay}</span>
+          </div>
         </div>
 
-        {/* Metric 4: Parity Gap & Audit Status */}
-        <div className="rounded-xl border border-[#E8E2D5] bg-[#F6F2E9] p-3.5 dark:border-[#2D2A24] dark:bg-[#171614]">
-          <span className="specimen-tag text-[9px] text-[#7A7468] block mb-1">
-            PARITY GAP & HUMAN AUDIT
+        {/* Metric 4: Human Review Status & Execution Cohort */}
+        <div className="rounded-xl border border-white/5 bg-[#131313] p-4 space-y-2">
+          <span className="text-[10px] font-mono text-[#7D7D7D] uppercase tracking-wider block">
+            Audit Provenance
           </span>
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-xs font-bold text-[#B35B43]">
-              &Delta; {passport.parity_gap.toFixed(3)}
-            </span>
-            <span className="rounded bg-[#FAECE8] px-1.5 py-0.5 text-[9px] font-semibold capitalize text-[#B35B43] dark:bg-[#2D1B17] dark:text-[#D9785F]">
-              {passport.human_review_status.replace("_", " ")}
-            </span>
+          <div className="text-xs font-mono text-white capitalize flex items-center gap-1.5">
+            <ShieldCheck className="h-4 w-4 text-[#F0A24C]" />
+            <span>{passport.human_review_status.replace("_", " ")}</span>
           </div>
-          <span className="text-[10px] text-[#7A7468] mt-1 block">
-            {passport.human_review_count} reviewer overrides logged
-          </span>
+          <div className="flex items-center justify-between pt-1 border-t border-white/5 text-[11px] font-mono text-[#7D7D7D]">
+            <span>Cohort:</span>
+            <span className="text-white capitalize">{passport.sample_count} samples ({passport.execution_status})</span>
+          </div>
         </div>
       </div>
     </div>

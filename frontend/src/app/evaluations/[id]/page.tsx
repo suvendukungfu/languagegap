@@ -131,27 +131,27 @@ function EvaluationDetailContent() {
 
   if (loading && !detail) {
     return (
-      <div className="mx-auto max-w-7xl px-4 py-24 text-center text-[#7A7468]">
-        <RefreshCw className="mx-auto h-8 w-8 animate-spin text-[#B35B43] mb-3" />
-        <p className="font-editorial-serif text-lg font-bold text-[#1F1E1A] dark:text-[#EDE8DC]">
+      <div className="mx-auto max-w-7xl px-4 py-32 text-center text-[#7D7D7D]">
+        <RefreshCw className="mx-auto h-8 w-8 animate-spin text-[#F0A24C] mb-3" />
+        <p className="text-lg font-light text-white">
           Loading Archival Evaluation Records...
         </p>
-        <p className="text-xs text-[#7A7468] mt-1">Fetching response cohorts and parity metrics from SQLite repository</p>
+        <p className="text-xs text-[#717171] mt-1">Fetching response cohorts and parity metrics from SQLite repository</p>
       </div>
     );
   }
 
   if (errorMsg || !detail) {
     return (
-      <div className="mx-auto max-w-7xl px-4 py-16">
-        <div className="rounded-2xl border border-[#E5B5A7] bg-[#FAECE8] p-8 text-[#9E4A34] dark:border-[#52291E] dark:bg-[#2D1B17] dark:text-[#E5A394]">
-          <h2 className="font-editorial-serif text-xl font-bold">Failed to Load Evaluation Run</h2>
-          <p className="mt-1 text-xs">{errorMsg || "The requested evaluation run could not be found."}</p>
+      <div className="mx-auto max-w-7xl px-4 py-24">
+        <div className="rounded-2xl border border-red-500/30 bg-red-950/20 p-8 text-red-200">
+          <h2 className="text-xl font-normal text-white">Failed to Load Evaluation Run</h2>
+          <p className="mt-1 text-xs text-red-300">{errorMsg || "The requested evaluation run could not be found."}</p>
           <Link
             href="/"
-            className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#B35B43] underline hover:text-[#9E4A34]"
+            className="mt-4 inline-flex items-center gap-1.5 text-xs text-[#F0A24C] hover:underline"
           >
-            <ArrowLeft className="h-3.5 w-3.5" /> Return to Exhibition Overview
+            <ArrowLeft className="h-3.5 w-3.5" /> Return to Research Overview
           </Link>
         </div>
       </div>
@@ -162,124 +162,126 @@ function EvaluationDetailContent() {
   const currentTaskResponses = detail.responses.filter((r) => r.task_id === selectedTaskId);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 space-y-8">
-      {/* Top Header / Breadcrumb */}
-      <div>
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#7A7468] hover:text-[#1F1E1A] dark:hover:text-[#EDE8DC] transition-colors"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to Exhibition Overview
-        </Link>
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-4 border-b border-[#DDD6C8] pb-6 dark:border-[#36332C]">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="archival-stamp rounded px-1.5 py-0.5 text-[9px] text-[#2D4059] border-[#2D4059] dark:text-[#6F8CB0] dark:border-[#6F8CB0]">
-                EVALUATION ARCHIVE
-              </span>
-              <span className="specimen-tag text-xs font-mono text-[#7A7468]">
-                RUN: {detail.run.id}
-              </span>
+    <div className="min-h-screen bg-[#0D0D0D] text-[#ADADAD] pt-24 pb-20 selection:bg-[#F0A24C]/25 selection:text-white">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-8">
+        {/* Top Header / Breadcrumb */}
+        <div>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-xs text-[#7D7D7D] hover:text-white transition-colors"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to Research Overview
+          </Link>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 rounded text-[10px] tracking-widest uppercase font-mono text-[#F0A24C] bg-[#2C241D] border border-[#F0A24C]/30">
+                  EVALUATION ARCHIVE
+                </span>
+                <span className="text-xs font-mono text-[#7D7D7D]">
+                  RUN: {detail.run.id}
+                </span>
+              </div>
+              <h1 className="mt-2 text-3xl sm:text-4xl font-light tracking-tight text-white">
+                Cross-Lingual Evaluation Matrix
+              </h1>
+              <p className="mt-1 text-xs text-[#7D7D7D]">
+                Model: <span className="font-mono text-white">{detail.run.model_id}</span> ({detail.run.provider_name}) • Recorded: {new Date(detail.run.created_at).toLocaleString()}
+              </p>
             </div>
-            <h1 className="mt-1 font-editorial-serif text-3xl font-bold tracking-tight text-[#1F1E1A] dark:text-[#EDE8DC] sm:text-4xl">
-              Cross-Lingual Evaluation Matrix
-            </h1>
-            <p className="mt-1 text-xs text-[#7A7468] dark:text-[#8C8577]">
-              Model: <span className="font-mono font-medium text-[#1F1E1A] dark:text-[#EDE8DC]">{detail.run.model_id}</span> ({detail.run.provider_name}) &bull; Recorded: {new Date(detail.run.created_at).toLocaleString()}
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <StatusBadge
-              isProvisional={report ? report.is_provisional : true}
-              isMock={detail.run.provider_name === "mock"}
-            />
-            <button
-              onClick={handleRefresh}
-              className="rounded-lg border border-[#DDD6C8] bg-[#FCFAF6] p-2 text-[#7A7468] hover:bg-[#F6F2E9] hover:text-[#1F1E1A] dark:border-[#36332C] dark:bg-[#1F1D19] dark:hover:bg-[#2A2822] transition-colors"
-              title="Refresh results"
-            >
-              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Reproducibility Passport & Provenance Manifest */}
-      {passport && <ReproducibilityPassportCard passport={passport} />}
-
-      {/* Parity Report Card */}
-      {report && <ParityCard report={report} />}
-
-      {/* Task Tabs Navigation */}
-      <div className="rounded-2xl border border-[#DDD6C8] bg-[#FCFAF6] p-6 shadow-xs dark:border-[#36332C] dark:bg-[#1F1D19]">
-        <div className="flex items-center justify-between border-b border-[#E8E2D5] pb-3.5 dark:border-[#2D2A24]">
-          <div className="flex items-center gap-2">
-            <Layers className="h-4 w-4 text-[#B35B43]" />
-            <h3 className="font-editorial-serif text-base font-bold text-[#1F1E1A] dark:text-[#EDE8DC]">
-              Matched Task Group Exhibition
-            </h3>
-          </div>
-          <span className="specimen-tag text-[10px] text-[#7A7468] dark:text-[#8C8577]">
-            {taskIds.length} Curated Tasks &bull; 4 Scripts
-          </span>
-        </div>
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {taskIds.map((tid) => {
-            const isSelected = tid === selectedTaskId;
-            return (
+            <div className="flex items-center gap-3">
+              <StatusBadge
+                isProvisional={report ? report.is_provisional : true}
+                isMock={detail.run.provider_name === "mock"}
+              />
               <button
-                key={tid}
-                onClick={() => setSelectedTaskId(tid)}
-                className={`rounded-lg px-3.5 py-1.5 text-xs font-mono font-medium transition-all ${
-                  isSelected
-                    ? "border border-[#B35B43] bg-[#FAECE8] text-[#B35B43] shadow-xs dark:border-[#D9785F] dark:bg-[#2D1B17] dark:text-[#D9785F]"
-                    : "border border-[#DDD6C8] bg-[#F6F2E9] text-[#5E594F] hover:bg-[#EFE9DC] hover:text-[#1F1E1A] dark:border-[#36332C] dark:bg-[#171614] dark:text-[#A69F91]"
-                }`}
+                onClick={handleRefresh}
+                className="btn-secondary-glass rounded-full p-2.5 text-[#ADADAD] hover:text-white"
+                title="Refresh results"
               >
-                {tid}
+                <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin text-[#F0A24C]" : ""}`} />
               </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 4-Way Language Comparison Matrix */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <span className="specimen-tag text-[9px] font-bold text-[#2D4059] dark:text-[#6F8CB0] block">
-              PARALLEL LANGUAGE SPECIMENS
-            </span>
-            <h3 className="font-editorial-serif text-xl font-bold text-[#1F1E1A] dark:text-[#EDE8DC]">
-              Four-Language Response Audit: <span className="font-mono text-base font-normal text-[#B35B43]">{selectedTaskId}</span>
-            </h3>
+            </div>
           </div>
-          <span className="text-xs text-[#7A7468] hidden sm:inline">
-            Side-by-side linguistic comparison across English, Hindi, Punjabi, and Odia
-          </span>
         </div>
 
-        <LanguageComparisonMatrix
-          responses={currentTaskResponses}
-          onReviewUpdated={handleReviewUpdated}
-        />
-      </div>
+        {/* Reproducibility Passport & Provenance Manifest */}
+        {passport && <ReproducibilityPassportCard passport={passport} />}
 
-      {/* Graphical Parity Analysis */}
-      {report && (
-        <div className="pt-4 border-t border-[#DDD6C8] dark:border-[#36332C]">
-          <div className="mb-4">
-            <span className="specimen-tag text-[9px] font-bold text-[#2D4059] dark:text-[#6F8CB0] block">
-              ANALYTICAL TELEMETRY
+        {/* Parity Report Card */}
+        {report && <ParityCard report={report} />}
+
+        {/* Task Tabs Navigation */}
+        <div className="rounded-2xl border border-white/10 bg-[#1D1D1D]/70 p-6 shadow-xl backdrop-blur-xl">
+          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div className="flex items-center gap-2">
+              <Layers className="h-4 w-4 text-[#F0A24C]" />
+              <h3 className="text-base font-normal text-white">
+                Matched Task Group Exhibition
+              </h3>
+            </div>
+            <span className="text-[10px] font-mono text-[#7D7D7D]">
+              {taskIds.length} Curated Tasks • 4 Scripts
             </span>
-            <h3 className="font-editorial-serif text-xl font-bold text-[#1F1E1A] dark:text-[#EDE8DC]">
-              Disparity Visualizations & Dimensional Decomposition
-            </h3>
           </div>
-          <ParityBarChart report={report} />
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            {taskIds.map((tid) => {
+              const isSelected = tid === selectedTaskId;
+              return (
+                <button
+                  key={tid}
+                  onClick={() => setSelectedTaskId(tid)}
+                  className={`rounded-full px-4 py-1.5 text-xs font-mono transition-all ${
+                    isSelected
+                      ? "border border-[#F0A24C]/60 bg-[#2C241D] text-[#F0A24C] shadow-sm"
+                      : "border border-white/10 bg-[#131313] text-[#7D7D7D] hover:text-white"
+                  }`}
+                >
+                  {tid}
+                </button>
+              );
+            })}
+          </div>
         </div>
-      )}
+
+        {/* 4-Way Language Comparison Matrix */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <span className="text-[10px] font-mono text-[#F0A24C] block mb-1">
+                PARALLEL LANGUAGE SPECIMENS
+              </span>
+              <h3 className="text-xl font-normal text-white">
+                Four-Language Response Audit: <span className="font-mono text-base text-[#F0A24C]">{selectedTaskId}</span>
+              </h3>
+            </div>
+            <span className="text-xs text-[#7D7D7D] hidden sm:inline font-light">
+              Side-by-side linguistic comparison across English, Hindi, Punjabi, and Odia
+            </span>
+          </div>
+
+          <LanguageComparisonMatrix
+            responses={currentTaskResponses}
+            onReviewUpdated={handleReviewUpdated}
+          />
+        </div>
+
+        {/* Graphical Parity Analysis */}
+        {report && (
+          <div className="pt-4 border-t border-white/10">
+            <div className="mb-6">
+              <span className="text-[10px] font-mono text-[#F0A24C] block mb-1">
+                ANALYTICAL TELEMETRY
+              </span>
+              <h3 className="text-xl font-normal text-white">
+                Disparity Visualizations & Dimensional Decomposition
+              </h3>
+            </div>
+            <ParityBarChart report={report} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -287,9 +289,9 @@ function EvaluationDetailContent() {
 export default function EvaluationDetailPage() {
   return (
     <Suspense fallback={
-      <div className="mx-auto max-w-7xl px-4 py-24 text-center text-[#7A7468]">
-        <RefreshCw className="mx-auto h-8 w-8 animate-spin text-[#B35B43] mb-3" />
-        <p className="font-editorial-serif text-lg font-bold text-[#1F1E1A]">Loading Evaluation...</p>
+      <div className="min-h-screen bg-[#0D0D0D] flex items-center justify-center text-center text-[#7D7D7D]">
+        <RefreshCw className="mx-auto h-8 w-8 animate-spin text-[#F0A24C] mb-3" />
+        <p className="text-lg font-light text-white">Loading Evaluation...</p>
       </div>
     }>
       <EvaluationDetailContent />
