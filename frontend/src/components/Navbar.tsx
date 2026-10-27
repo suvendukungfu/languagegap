@@ -32,7 +32,7 @@ export function Navbar() {
         <div className="pointer-events-auto flex items-center justify-between rounded-full bg-[#131313]/80 backdrop-blur-xl border border-white/10 px-4 py-2 sm:px-5 sm:py-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
           {/* Left: Original LanguageGap Brand Mark and Wordmark */}
           <Link href="/" className="group flex items-center gap-2.5">
-            <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#2C241D] to-[#7A5832] border border-[#F0A24C]/40 text-[#F0A24C] shadow-[0_0_15px_rgba(240,162,76,0.25)] transition-transform duration-300 group-hover:scale-105">
+            <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-[#2C241D] to-[#7A5832] border border-[#F0A24C]/40 text-[#F0A24C] shadow-[0_0_15px_rgba(240,162,76,0.25)] transition-transform duration-300 group-hover:scale-105">
               <span className="font-mono text-xs font-bold tracking-tighter text-white">LG</span>
               <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-[#F0A24C] ring-2 ring-[#0D0D0D]" />
             </div>

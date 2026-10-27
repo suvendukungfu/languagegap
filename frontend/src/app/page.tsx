@@ -468,8 +468,8 @@ export default function ShipcraftLanguageGapPage() {
           ========================================================================= */}
       <section className="relative pt-28 pb-20 sm:pt-36 sm:pb-32 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto overflow-hidden">
         {/* Subtle Ambient Amber Glow Backdrop */}
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full bg-[#F0A24C]/10 blur-[130px] pointer-events-none -z-10" />
-        <div className="absolute -top-24 left-1/4 w-[400px] h-[400px] rounded-full bg-[#7A5832]/15 blur-[120px] pointer-events-none -z-10" />
+        <div className="absolute top-1/4 right-0 w-125 h-125 rounded-full bg-[#F0A24C]/10 blur-[130px] pointer-events-none -z-10" />
+        <div className="absolute -top-24 left-1/4 w-100 h-100 rounded-full bg-[#7A5832]/15 blur-[120px] pointer-events-none -z-10" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left: Headline and CTA Composition */}
@@ -576,7 +576,7 @@ export default function ShipcraftLanguageGapPage() {
                 </div>
 
                 {/* Row 2: Hindi (Amber-Highlighted Selected Language) */}
-                <div className="relative flex items-center justify-between p-3.5 rounded-xl border border-[#F0A24C]/50 bg-gradient-to-r from-[#2C241D]/90 to-[#1D1D1D]/90 shadow-[0_0_25px_rgba(240,162,76,0.2)]">
+                <div className="relative flex items-center justify-between p-3.5 rounded-xl border border-[#F0A24C]/50 bg-linear-to-r from-[#2C241D]/90 to-[#1D1D1D]/90 shadow-[0_0_25px_rgba(240,162,76,0.2)]">
                   <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-[#F0A24C] rounded-r" />
                   <div className="flex items-center gap-3">
                     <span className="font-mono text-xs font-medium text-[#F0A24C] px-2 py-0.5 rounded bg-[#F0A24C]/10 border border-[#F0A24C]/30">
@@ -679,7 +679,7 @@ export default function ShipcraftLanguageGapPage() {
           </div>
 
           {/* Card 2: Hidden Language Disparity */}
-          <div className="editorial-card rounded-2xl p-8 space-y-5 flex flex-col justify-between border-[#F0A24C]/30 bg-gradient-to-b from-[#1D1D1D] to-[#2C241D]/30">
+          <div className="editorial-card rounded-2xl p-8 space-y-5 flex flex-col justify-between border-[#F0A24C]/30 bg-linear-to-b from-[#1D1D1D] to-[#2C241D]/30">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono text-[#F0A24C]">PHASE 02</span>
@@ -743,7 +743,7 @@ export default function ShipcraftLanguageGapPage() {
         {/* 5 Connected Steps */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-5 gap-4 relative">
           {/* Connector Line behind steps on desktop */}
-          <div className="hidden md:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F0A24C]/30 to-transparent -translate-y-6 -z-10" />
+          <div className="hidden md:block absolute top-1/2 left-0 right-0 h-px bg-linear-to-r from-transparent via-[#F0A24C]/30 to-transparent -translate-y-6 -z-10" />
 
           {/* Step 01 */}
           <div className="editorial-card rounded-2xl p-6 flex flex-col justify-between space-y-4">
@@ -802,7 +802,7 @@ export default function ShipcraftLanguageGapPage() {
           </div>
 
           {/* Step 05 */}
-          <div className="editorial-card rounded-2xl p-6 flex flex-col justify-between space-y-4 border-[#F0A24C]/40 bg-gradient-to-b from-[#1D1D1D] to-[#2C241D]/40">
+          <div className="editorial-card rounded-2xl p-6 flex flex-col justify-between space-y-4 border-[#F0A24C]/40 bg-linear-to-b from-[#1D1D1D] to-[#2C241D]/40">
             <div>
               <span className="text-2xl font-light text-[#F0A24C] font-mono">05</span>
               <h4 className="mt-3 text-sm font-normal text-white">Parity Report</h4>
@@ -865,7 +865,7 @@ export default function ShipcraftLanguageGapPage() {
               onClick={() => setActiveTaskIndex(idx)}
               className={`editorial-card rounded-2xl p-6 cursor-pointer transition-all ${
                 activeTaskIndex === idx
-                  ? "border-[#F0A24C] bg-gradient-to-b from-[#1D1D1D] to-[#2C241D]/50 shadow-[0_0_30px_rgba(240,162,76,0.18)]"
+                  ? "border-[#F0A24C] bg-linear-to-b from-[#1D1D1D] to-[#2C241D]/50 shadow-[0_0_30px_rgba(240,162,76,0.18)]"
                   : "hover:border-white/20"
               }`}
             >
@@ -934,7 +934,7 @@ export default function ShipcraftLanguageGapPage() {
                   onClick={() => setActiveComparisonLang(lang.code)}
                   className={`rounded-2xl p-6 cursor-pointer flex flex-col justify-between space-y-6 transition-all ${
                     isSelected
-                      ? "border border-[#F0A24C] bg-gradient-to-b from-[#2C241D]/90 to-[#1D1D1D] shadow-[0_0_30px_rgba(240,162,76,0.22)]"
+                      ? "border border-[#F0A24C] bg-linear-to-b from-[#2C241D]/90 to-[#1D1D1D] shadow-[0_0_30px_rgba(240,162,76,0.22)]"
                       : "border border-white/10 bg-[#1D1D1D]/60 hover:border-white/20"
                   }`}
                 >
@@ -1201,7 +1201,7 @@ export default function ShipcraftLanguageGapPage() {
           </div>
 
           {/* Column 2: Transparent Provenance Separation */}
-          <div className="editorial-card rounded-2xl p-8 space-y-6 border-[#F0A24C]/30 bg-gradient-to-b from-[#1D1D1D] to-[#2C241D]/30">
+          <div className="editorial-card rounded-2xl p-8 space-y-6 border-[#F0A24C]/30 bg-linear-to-b from-[#1D1D1D] to-[#2C241D]/30">
             <h3 className="text-xl font-light text-white tracking-tight flex items-center gap-2.5">
               <FileCheck2 className="h-5 w-5 text-[#F0A24C]" />
               <span>Immutable Provenance Separation</span>
@@ -1298,7 +1298,7 @@ export default function ShipcraftLanguageGapPage() {
           ========================================================================= */}
       <section className="relative pt-32 pb-44 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/10 overflow-hidden text-center">
         {/* Amber Rim Lighting Glows */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[350px] rounded-full bg-[#F0A24C]/15 blur-[140px] pointer-events-none -z-10" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-150 h-87.5 rounded-full bg-[#F0A24C]/15 blur-[140px] pointer-events-none -z-10" />
 
         <div className="max-w-3xl mx-auto space-y-8 relative z-10">
           {/* Pill: Build a more inclusive AI future */}
@@ -1345,7 +1345,7 @@ export default function ShipcraftLanguageGapPage() {
 
         {/* Cinematic Illustration: Two White Carrara Marble Sculpture Hands */}
         <div className="relative mt-16 max-w-4xl mx-auto pointer-events-none select-none">
-          <div className="relative w-full aspect-[16/9] max-h-[460px] mx-auto overflow-hidden">
+          <div className="relative w-full aspect-video max-h-115 mx-auto overflow-hidden">
             <Image
               src="/images/marble_hands.jpg"
               alt="Two white Carrara marble sculpture hands reaching toward each other with amber rim lighting"
@@ -1354,7 +1354,7 @@ export default function ShipcraftLanguageGapPage() {
               priority
             />
             {/* Soft Ambient Fade to match #0D0D0D background */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-transparent to-[#0D0D0D]/60 pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-t from-[#0D0D0D] via-transparent to-[#0D0D0D]/60 pointer-events-none" />
             <div className="absolute inset-0 bg-radial from-transparent via-[#0D0D0D]/30 to-[#0D0D0D] pointer-events-none" />
           </div>
         </div>
@@ -1377,7 +1377,7 @@ export default function ShipcraftLanguageGapPage() {
           {/* COLUMN 1 — BRAND */}
           <div className="space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#2C241D] to-[#7A5832] border border-[#F0A24C]/40 text-[#F0A24C] shadow-[0_0_15px_rgba(240,162,76,0.25)]">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-[#2C241D] to-[#7A5832] border border-[#F0A24C]/40 text-[#F0A24C] shadow-[0_0_15px_rgba(240,162,76,0.25)]">
                 <span className="font-mono text-xs font-bold text-white">LG</span>
               </div>
               <span className="text-base font-normal tracking-tight text-white">
