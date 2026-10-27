@@ -11,7 +11,7 @@ test.describe("LanguageGap Dashboard E2E", () => {
   test("navigates to evaluation setup screen", async ({ page }) => {
     await page.goto("/evaluate");
     await expect(page.locator("h1")).toContainText("New Multilingual Evaluation Run");
-    await expect(page.getByText("Mock Provider")).toBeVisible();
+    await expect(page.getByText("Mock Provider", { exact: true })).toBeVisible();
     await expect(page.getByText("Gemma 4 Live Server")).toBeVisible();
   });
 });
