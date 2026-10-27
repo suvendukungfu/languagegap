@@ -1,45 +1,116 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Gurmukhi:wght@400;600;700&family=Noto+Sans+Oriya:wght@400;600;700&display=swap');
+
 @layer base {
   :root {
-    --background: #f8fafc;
-    --foreground: #0f172a;
-    --card: #ffffff;
-    --card-foreground: #0f172a;
-    --border: #e2e8f0;
-    --primary: #2563eb;
-    --primary-foreground: #ffffff;
+    --background: #f6f2e9;
+    --foreground: #1f1e1a;
+    --surface: #fcfaf6;
+    --surface-muted: #efe9dc;
+    --border: #ddd6c8;
+    --border-strong: #c8bfad;
+    --ink: #1f1e1a;
+    --ink-muted: #5e594f;
+    --indigo: #2d4059;
+    --indigo-light: #e8ecf2;
+    --terracotta: #b35b43;
+    --terracotta-light: #faece8;
+    --sage: #6e775f;
+    --sage-light: #edf0ea;
+    --gold: #c79d4c;
+    --gold-light: #fbf5e8;
   }
 
   .dark {
-    --background: #090d16;
-    --foreground: #f8fafc;
-    --card: #111827;
-    --card-foreground: #f8fafc;
-    --border: #1f2937;
-    --primary: #3b82f6;
-    --primary-foreground: #ffffff;
+    --background: #171614;
+    --foreground: #ede8dc;
+    --surface: #1f1d19;
+    --surface-muted: #2a2822;
+    --border: #36332c;
+    --border-strong: #4a463c;
+    --ink: #ede8dc;
+    --ink-muted: #a69f91;
+    --indigo: #6f8cb0;
+    --indigo-light: #222d3d;
+    --terracotta: #d9785f;
+    --terracotta-light: #3d241d;
+    --sage: #96a184;
+    --sage-light: #292d24;
+    --gold: #dfb768;
+    --gold-light: #3b311b;
   }
 }
 
-/* Indic Script Font Family Fallbacks */
+/* Typography Foundations */
+.font-editorial-serif {
+  font-family: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
+  font-feature-settings: "cv02", "cv03", "liga", "dlig";
+}
+
+.font-editorial-sans {
+  font-family: 'Plus Jakarta Sans', var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Indic Script Font Stacks with Optimal Line Heights */
 .font-devanagari {
   font-family: 'Noto Sans Devanagari', 'Kohinoor Devanagari', 'Nirmala UI', sans-serif;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .font-gurmukhi {
   font-family: 'Noto Sans Gurmukhi', 'Kohinoor Gurmukhi', 'Raavi', sans-serif;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .font-odia {
   font-family: 'Noto Sans Oriya', 'Kalinga', 'Nirmala UI', sans-serif;
-  line-height: 1.65;
+  line-height: 1.75;
 }
 
+/* Base Body Application */
 body {
   background-color: var(--background);
   color: var(--foreground);
+  font-family: 'Plus Jakarta Sans', var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  background-image: radial-gradient(rgba(31, 30, 26, 0.035) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+
+/* Archival Specimen & Exhibition Primitives */
+.specimen-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(31, 30, 26, 0.03), 0 10px 30px -5px rgba(31, 30, 26, 0.04);
+}
+
+.specimen-tag {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.archival-stamp {
+  border: 1.5px solid currentColor;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Smooth Scrolling & Accessibility */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
