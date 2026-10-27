@@ -4,12 +4,13 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { ArrowLeft, Layers, RefreshCw } from "lucide-react";
-import { DimensionScores, EvaluationDetailResponse, ParityGapReport } from "@/types";
-import { getEvaluation, getEvaluationReport } from "@/lib/api";
+import { DimensionScores, EvaluationDetailResponse, EvaluationPassportResponse, ParityGapReport } from "@/types";
+import { getEvaluation, getEvaluationPassport, getEvaluationReport } from "@/lib/api";
 import { ParityCard } from "@/components/ParityCard";
 import { ParityBarChart } from "@/components/ParityBarChart";
 import { LanguageComparisonMatrix } from "@/components/LanguageComparisonMatrix";
 import { StatusBadge } from "@/components/StatusBadge";
+import { ReproducibilityPassportCard } from "@/components/ReproducibilityPassportCard";
 
 function EvaluationDetailContent() {
   const params = useParams();
@@ -17,6 +18,7 @@ function EvaluationDetailContent() {
 
   const [detail, setDetail] = useState<EvaluationDetailResponse | null>(null);
   const [report, setReport] = useState<ParityGapReport | null>(null);
+  const [passport, setPassport] = useState<EvaluationPassportResponse | null>(null);
   const [selectedTaskId, setSelectedTaskId] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -39,6 +41,12 @@ function EvaluationDetailContent() {
           setReport(rep);
         } catch {
           // Report not available yet
+        }
+        try {
+          const pass = await getEvaluationPassport(evaluationId);
+          setPassport(pass);
+        } catch {
+          // Passport not available yet
         }
       })
       .catch((err: unknown) => {
@@ -69,6 +77,13 @@ function EvaluationDetailContent() {
           if (!ignore) setReport(rep);
         } catch {
           // Report not available yet
+        }
+
+        try {
+          const pass = await getEvaluationPassport(evaluationId);
+          if (!ignore) setPassport(pass);
+        } catch {
+          // Passport not available yet
         }
       })
       .catch((err: unknown) => {
@@ -105,9 +120,12 @@ function EvaluationDetailContent() {
       responses: updatedResponses,
     });
 
-    // Refresh parity report to reflect updated human score
+    // Refresh parity report and passport to reflect updated human score
     getEvaluationReport(evaluationId)
       .then((rep) => setReport(rep))
+      .catch(() => {});
+    getEvaluationPassport(evaluationId)
+      .then((pass) => setPassport(pass))
       .catch(() => {});
   };
 
@@ -185,6 +203,9 @@ function EvaluationDetailContent() {
           </div>
         </div>
       </div>
+
+      {/* Reproducibility Passport & Provenance Manifest */}
+      {passport && <ReproducibilityPassportCard passport={passport} />}
 
       {/* Parity Report Card */}
       {report && <ParityCard report={report} />}

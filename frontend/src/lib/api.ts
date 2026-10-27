@@ -6,6 +6,7 @@ import {
   BenchmarkSummary,
   CreateEvaluationRequest,
   EvaluationDetailResponse,
+  EvaluationPassportResponse,
   EvaluationSummary,
   HumanReviewRequest,
   LanguageInfo,
@@ -81,4 +82,8 @@ export async function submitHumanReview(
     method: "POST",
     body: JSON.stringify(payload),
   });
+}
+
+export async function getEvaluationPassport(id: string): Promise<EvaluationPassportResponse> {
+  return fetchJson(`${API_BASE}/evaluations/${id}/passport`);
 }

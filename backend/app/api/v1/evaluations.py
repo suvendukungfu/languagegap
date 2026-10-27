@@ -3,13 +3,15 @@
 import json
 from typing import List, Optional
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.core.config import settings
 from app.db.database import get_db
 from app.db.models import EvaluationRunModel, TaskResponseModel
 from app.evaluation.parity import ParityCalculator
+from app.evaluation.passport import build_evaluation_passport
 from app.evaluation.runner import execute_evaluation_run
+from app.schemas.passport import EvaluationPassportResponse
 from app.schemas.api import (
     CreateEvaluationRequest,
     EvaluationDetailResponse,
@@ -205,3 +207,24 @@ def get_evaluation_report(evaluation_id: str, db: Session = Depends(get_db)) -> 
         benchmark_version=run.benchmark_version,
     )
     return report
+
+
+@router.get("/evaluations/{evaluation_id}/passport", response_model=EvaluationPassportResponse)
+def get_evaluation_passport(evaluation_id: str, db: Session = Depends(get_db)) -> EvaluationPassportResponse:
+    """Export machine-readable reproducibility passport and provenance manifest.
+    
+    Returns benchmark SHA-256 fingerprint, integrity validation, provider metadata,
+    decoupled dimension scores, cross-lingual parity gaps, and certified reviewer overrides.
+    """
+    run = (
+        db.query(EvaluationRunModel)
+        .options(
+            joinedload(EvaluationRunModel.responses).joinedload(TaskResponseModel.reviews)
+        )
+        .filter(EvaluationRunModel.id == evaluation_id)
+        .first()
+    )
+    if not run:
+        raise HTTPException(status_code=404, detail=f"Evaluation run '{evaluation_id}' not found")
+
+    return build_evaluation_passport(run=run, db=db)

@@ -152,3 +152,56 @@ export interface HumanReviewRequest {
   };
   reviewer_notes: string;
 }
+
+export interface BenchmarkIntegrityReport {
+  valid: boolean;
+  errors: string[];
+  warnings: string[];
+  benchmark_id: string;
+  benchmark_version: string;
+  task_count: number;
+  language_coverage: Record<string, number>;
+  expected_languages: string[];
+  benchmark_sha256: string;
+  verified_at: string;
+}
+
+export interface ReviewerOverrideMetadata {
+  response_id: string;
+  task_id: string;
+  language: string;
+  reviewer_id: string;
+  reviewed_at: string;
+  original_scores: DimensionScores;
+  overridden_scores: DimensionScores;
+  reviewer_notes: string;
+}
+
+export interface EvaluationPassportResponse {
+  evaluation_run_id: string;
+  benchmark_id: string;
+  benchmark_version: string;
+  benchmark_sha256: string;
+  provider_id: string;
+  actual_model_id: string;
+  is_mock_provider: boolean;
+  evaluation_timestamp: string;
+  completed_at?: string | null;
+  execution_status: string;
+  language_set: string[];
+  task_count: number;
+  sample_count: number;
+  scoring_configuration: Record<string, unknown>;
+  evaluator_version: string;
+  language_wise_scores: Record<string, Record<string, number>>;
+  language_means: Record<string, number>;
+  dimension_wise_scores: Record<string, number>;
+  parity_gap: number;
+  highest_language: string;
+  lowest_language: string;
+  human_review_status: "unreviewed" | "partially_reviewed" | "fully_reviewed";
+  human_review_count: number;
+  reviewer_overrides: ReviewerOverrideMetadata[];
+  benchmark_integrity: BenchmarkIntegrityReport;
+  exported_at: string;
+}
