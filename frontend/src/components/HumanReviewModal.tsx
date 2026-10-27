@@ -30,6 +30,20 @@ export function HumanReviewModal({
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const currentTotal = factual + completeness + instruction + naturalness + safety;
@@ -80,7 +94,12 @@ export function HumanReviewModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="review-modal-title"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+    >
       <div className="w-full max-w-xl rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4 dark:border-slate-800">
@@ -89,7 +108,7 @@ export function HumanReviewModal({
               <UserCheck className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="text-base font-semibold text-slate-900 dark:text-white">
+              <h3 id="review-modal-title" className="text-base font-semibold text-slate-900 dark:text-white">
                 Human Review & Score Override
               </h3>
               <p className="text-xs text-slate-500">
@@ -99,6 +118,7 @@ export function HumanReviewModal({
           </div>
           <button
             onClick={onClose}
+            aria-label="Close review modal"
             className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800"
           >
             <X className="h-5 w-5" />
@@ -145,6 +165,7 @@ export function HumanReviewModal({
               </div>
               <input
                 type="range"
+                aria-label="Factual Correctness score (0 to 4)"
                 min="0"
                 max="4"
                 step="1"
@@ -162,6 +183,7 @@ export function HumanReviewModal({
               </div>
               <input
                 type="range"
+                aria-label="Completeness score (0 to 4)"
                 min="0"
                 max="4"
                 step="1"
@@ -179,6 +201,7 @@ export function HumanReviewModal({
               </div>
               <input
                 type="range"
+                aria-label="Instruction Adherence score (0 to 2)"
                 min="0"
                 max="2"
                 step="1"
@@ -196,6 +219,7 @@ export function HumanReviewModal({
               </div>
               <input
                 type="range"
+                aria-label="Language Naturalness and Script Quality score (0 to 2)"
                 min="0"
                 max="2"
                 step="1"
@@ -213,6 +237,7 @@ export function HumanReviewModal({
               </div>
               <input
                 type="range"
+                aria-label="Safety Appropriateness score (0 to 2)"
                 min="0"
                 max="2"
                 step="1"
