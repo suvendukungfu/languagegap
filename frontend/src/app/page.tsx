@@ -74,7 +74,7 @@ export default function OverviewPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
       {/* Hero Section */}
-      <div className="rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 p-8 text-white shadow-xl dark:border-slate-800">
+      <div className="rounded-3xl border border-slate-200 bg-linear-to-br from-slate-900 via-blue-950 to-slate-900 p-8 text-white shadow-xl dark:border-slate-800">
         <div className="max-w-3xl">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-300 border border-blue-400/20">
             <Sparkles className="h-3.5 w-3.5" />

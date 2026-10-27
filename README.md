@@ -59,6 +59,7 @@ Detailed architectural decisions are documented in [docs/architecture.md](docs/a
 ## Quick Start
 
 ### 1. Backend Setup
+
 ```bash
 cd backend
 python3 -m venv .venv && source .venv/bin/activate
@@ -68,14 +69,17 @@ uvicorn app.main:app --reload --port 8000
 ```
 
 ### 2. Frontend Setup
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
+
 Access the research dashboard at [http://localhost:3000](http://localhost:3000). For a step-by-step walkthrough, see the [Demonstration Guide](docs/demo-guide.md).
 
 ### 3. Verify Gemma Inference (Smoke Test)
+
 ```bash
 cd backend
 # Test live local Ollama endpoint
