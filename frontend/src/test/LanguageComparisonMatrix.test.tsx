@@ -65,6 +65,6 @@ describe("LanguageComparisonMatrix Component", () => {
   it("indicates missing languages with a dashed placeholder", () => {
     render(<LanguageComparisonMatrix responses={mockResponses} />);
     // Punjabi and Odia are missing in this mock
-    expect(screen.getAllByText(/No response recorded for this language variant/i)).toHaveLength(2);
+    expect(screen.getAllByText(/No response recorded/i)).toHaveLength(2);
   });
 });

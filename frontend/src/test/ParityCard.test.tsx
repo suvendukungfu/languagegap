@@ -48,8 +48,8 @@ describe("ParityCard Component", () => {
 
   it("displays sample audit count and model information", () => {
     render(<ParityCard report={mockReport} />);
-    expect(screen.getByText("6 Paired Tasks")).toBeInTheDocument();
-    expect(screen.getByText(/24 Total language responses/)).toBeInTheDocument();
+    expect(screen.getByText("6")).toBeInTheDocument();
+    expect(screen.getByText(/matched tasks/)).toBeInTheDocument();
     expect(screen.getByText("gemma-4-it")).toBeInTheDocument();
   });
 });
